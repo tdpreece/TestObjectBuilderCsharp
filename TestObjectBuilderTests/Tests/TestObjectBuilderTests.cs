@@ -141,5 +141,19 @@ namespace TestObjectBuilderTests
                 Assert.AreEqual(dependency2, builder.GetType().GetProperty("SecondDependency").GetValue(builder, null));
             }
         }
+
+        [TestFixture]
+        public class But : TestObjectBuilderMethodTest
+        {
+            [Test]
+            public void ButReturnsANewInstanceOfTheBuilder()
+            {
+                // Act
+                ITestObjBuilder<Product> builderFromBut = this._productBuilder.But();
+
+                // Assert
+                Assert.AreNotEqual(this._productBuilder, builderFromBut);
+            }
+        }
     }
 }
