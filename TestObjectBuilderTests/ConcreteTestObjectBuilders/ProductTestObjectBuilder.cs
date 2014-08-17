@@ -11,6 +11,7 @@ namespace TestObjectBuilderTests
         public ProductTestObjectBuilder()
         {
             this.FirstDependency = new DummyDependency1();
+            this.SecondDependency = new DummyDependency2();
         }
 
         override public Product Build()
@@ -19,5 +20,6 @@ namespace TestObjectBuilderTests
         }
 
         public IDependency1 FirstDependency { get; set; }
+        public IDependency2 SecondDependency { get; set; }
     }
 }

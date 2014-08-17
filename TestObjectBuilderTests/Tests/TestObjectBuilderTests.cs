@@ -88,10 +88,41 @@ namespace TestObjectBuilderTests
             public void ExceptionIsThrownWhenTryToSpecifyExternalDependencyOfWrongType()
             {
                 // Arrange
-                Dependency2 dependencyOfWrongType = new Dependency2();
+                IDependency2 dependencyOfWrongType = new DummyDependency2();
 
                 // Act
                 this._productBuilder.With(FirstDependency => dependencyOfWrongType);
+            }
+
+            [Test]
+            public void SetsTwoExternalDependenciesWhenPassedInSingleWithCall()
+            {
+                // Arrange
+                IDependency1 dependency1 = new DummyDependency1();
+                IDependency2 dependency2 = new DummyDependency2();
+
+                // Act
+                this._productBuilder.With(FirstDependency => dependency1, SecondDependency => dependency2);
+
+                // Assert
+                Assert.AreEqual(dependency1, this._productBuilder.FirstDependency);
+                Assert.AreEqual(dependency2, this._productBuilder.SecondDependency);
+            }
+
+            [Test]
+            public void TwoExternalDependenciesAreUsedByProductWhenPassedInConsecutiveWithCalls()
+            {
+                // Arrange
+                IDependency1 dependency1 = new DummyDependency1();
+                IDependency2 dependency2 = new DummyDependency2();
+
+                // Act
+                this._productBuilder.With(FirstDependency => dependency1);
+                this._productBuilder.With(SecondDependency => dependency2);
+
+                // Assert
+                Assert.AreEqual(dependency1, this._productBuilder.FirstDependency);
+                Assert.AreEqual(dependency2, this._productBuilder.SecondDependency);
             }
         }
     }

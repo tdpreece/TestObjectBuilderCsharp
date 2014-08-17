@@ -17,6 +17,9 @@ namespace TestObjectBuilderTests
             get { return this._firstDependency; }
         }
 
+        public IDependency2 SecondDependency { get; set; }
+
         private IDependency1 _firstDependency;
+
     }
 }
