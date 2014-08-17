@@ -44,6 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TestClassesAndDependencies\Dependency1.cs" />
+    <Compile Include="TestClassesAndDependencies\DummyDependency1.cs" />
+    <Compile Include="TestClassesAndDependencies\IDependency1.cs" />
+    <Compile Include="TestClassesAndDependencies\Product.cs" />
+    <Compile Include="ConcreteTestObjectBuilders\ProductTestObjectBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\TestObjectBuilderTests.cs" />
   </ItemGroup>
@@ -53,6 +58,7 @@
       <Name>TestObjectBuilder</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
