@@ -14,9 +14,9 @@ namespace TestObjectBuilderTests
      * done - Add a SimpleProduct class
      * done - Add a SimpleProductBuilder class (Needs: ctor, Build and properties).
      * done - with()
-     * - but()
-     * - build()
-     * - add getDependency(dependency name) string.  With returns ITestObjBuilder<T>, which
+     * done - but()
+     * done - build()
+     * done - add GetProperty(dependency name) string.  With returns ITestObjBuilder<T>, which
      *   has no visibility of the dependencies for a concrete class.  Thus you'd have to do,
      *   builder.GetType().GetProperty("FirstDependency").GetValue(builder, null)
      * - product is simple class
@@ -155,6 +155,28 @@ namespace TestObjectBuilderTests
                 Assert.AreNotEqual(this._productBuilder, builderFromBut);
                 Assert.AreEqual(this._productBuilder.FirstDependency, builderFromBut.FirstDependency);
                 Assert.AreEqual(this._productBuilder.SecondDependency, builderFromBut.SecondDependency);
+            }
+        }
+
+        [TestFixture]
+        public class GetDependency : TestObjectBuilderMethodTest
+        {
+            [Test]
+            public void ReturnsDependencyWhenCalled()
+            {
+                // Act
+                object propertyValue = this._productBuilder.GetProperty("FirstDependency");
+
+                // Assert
+                Assert.AreEqual(this._productBuilder.FirstDependency, propertyValue);
+            }
+
+            [Test]
+            [ExpectedException(typeof(ArgumentException))]
+            public void ThrowsExceptionWhenDependencyNameIsIncorrect()
+            {
+                // Act
+                object propertyValue = this._productBuilder.GetProperty("PropertyNameThatDoesNotExist");
             }
         }
     }

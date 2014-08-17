@@ -10,5 +10,6 @@ namespace TestObjectBuilder
         T Build();
         ITestObjBuilder<T> But();
         ITestObjBuilder<T> With(params Func<string, object>[] hash);
+        object GetProperty(string propertyName);
     }
 }

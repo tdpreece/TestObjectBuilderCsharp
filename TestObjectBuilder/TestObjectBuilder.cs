@@ -33,20 +33,34 @@ namespace TestObjectBuilder
             {
                 var propertyName = member.Method.GetParameters()[0].Name;
                 var propertyValue = member(string.Empty);
-                Type builderType = this.GetType();
-                PropertyInfo propertyInfo = builderType.GetProperty(propertyName);
-                if (propertyInfo == null)
-                {
-                    string propertyNotImplementedErrorMsg = 
-                        String.Format("Object '{0}' does not implement a property called '{1}'", 
-                        builderType.Name, propertyName);
-                    throw new ArgumentException(propertyNotImplementedErrorMsg);
-                }
-                
-                propertyInfo.SetValue(this, propertyValue, null);
+                GetPropertyInfoForProperty(propertyName).SetValue(this, propertyValue, null);
             };
 
             return (ITestObjBuilder<T>)this;
+        }
+
+        // <summary>
+        // Gets value of property requested.
+        // <remards>
+        // Added so that a user can easity get property values of property through ITestObjectBuilder.
+        // Thus, user doesn't have to cast to a concrete class of the TestObjectBuilder.
+        public object GetProperty(string propertyName)
+        {
+            return this.GetPropertyInfoForProperty(propertyName).GetValue(this, null);
+        }
+
+        protected PropertyInfo GetPropertyInfoForProperty(string propertyName)
+        {
+            Type builderType = this.GetType();
+            PropertyInfo propertyInfo = builderType.GetProperty(propertyName);
+            if (propertyInfo == null)
+            {
+                string propertyNotImplementedErrorMsg =
+                    String.Format("Object '{0}' does not implement a property called '{1}'",
+                    builderType.Name, propertyName);
+                throw new ArgumentException(propertyNotImplementedErrorMsg);
+            }
+            return propertyInfo;
         }
     }
 }
