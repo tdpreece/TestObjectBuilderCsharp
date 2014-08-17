@@ -31,21 +31,25 @@ namespace TestObjectBuilderTests
     public class TestObjectBuilderTests
     {
         [TestFixture]
-        public class With
+        public class Build
         {
             [Test]
             public void BuildingWithoutSpecifyingDependency1ExternallyUsesDummyDependency1()
             {
                 // Arrange
                 ITestObjBuilder<Product> productBuilder = new ProductTestObjectBuilder();
-                
+
                 // Act
                 Product product = productBuilder.Build();
 
                 // Assert
                 Assert.IsInstanceOf(typeof(DummyDependency1), product.FirstDependency);
             }
+        }
 
+        [TestFixture]
+        public class With
+        {
             [Test]
             public void BuildWithExternallySpecifiedDependency1ResultsInProductUsingExternallySpecifiedDependency1()
             {
@@ -59,7 +63,6 @@ namespace TestObjectBuilderTests
 
                 // Assert
                 Assert.AreEqual(externallySuppliedDependency1, product.FirstDependency);
-
             }
 
             [Test]
@@ -72,7 +75,6 @@ namespace TestObjectBuilderTests
 
                 // Act
                 productBuilder = productBuilder.With(PropertyNameThatDoesNotExist => externallySuppliedDependency1);
-
             }
         }
     }
