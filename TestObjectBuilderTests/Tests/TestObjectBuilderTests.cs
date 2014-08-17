@@ -30,17 +30,25 @@ namespace TestObjectBuilderTests
      */
     public class TestObjectBuilderTests
     {
+        public class TestObjectBuilderMethodTest
+        {
+            [SetUp]
+            public void init()
+            {
+                _productBuilder = new ProductTestObjectBuilder();
+            }
+
+            protected ProductTestObjectBuilder _productBuilder;
+        }
+
         [TestFixture]
-        public class Build
+        public class Build : TestObjectBuilderMethodTest
         {
             [Test]
             public void BuildingWithoutSpecifyingDependency1ExternallyUsesDummyDependency1()
             {
-                // Arrange
-                ITestObjBuilder<Product> productBuilder = new ProductTestObjectBuilder();
-
                 // Act
-                Product product = productBuilder.Build();
+                Product product = this._productBuilder.Build();
 
                 // Assert
                 Assert.IsInstanceOf(typeof(DummyDependency1), product.FirstDependency);
@@ -48,18 +56,17 @@ namespace TestObjectBuilderTests
         }
 
         [TestFixture]
-        public class With
+        public class With : TestObjectBuilderMethodTest
         {
             [Test]
             public void BuildWithExternallySpecifiedDependency1ResultsInProductUsingExternallySpecifiedDependency1()
             {
                 // Arrange
                 DummyDependency1 externallySuppliedDependency1 = new DummyDependency1();
-                ITestObjBuilder<Product> productBuilder = new ProductTestObjectBuilder();
 
                 // Act
-                productBuilder = productBuilder.With(FirstDependency => externallySuppliedDependency1);
-                Product product = productBuilder.Build();
+                this._productBuilder.With(FirstDependency => externallySuppliedDependency1);
+                Product product = this._productBuilder.Build();
 
                 // Assert
                 Assert.AreEqual(externallySuppliedDependency1, product.FirstDependency);
@@ -71,10 +78,9 @@ namespace TestObjectBuilderTests
             {
                 // Arrange
                 DummyDependency1 externallySuppliedDependency1 = new DummyDependency1();
-                ITestObjBuilder<Product> productBuilder = new ProductTestObjectBuilder();
 
                 // Act
-                productBuilder = productBuilder.With(PropertyNameThatDoesNotExist => externallySuppliedDependency1);
+                this._productBuilder.With(PropertyNameThatDoesNotExist => externallySuppliedDependency1);
             }
 
             [Test]
@@ -82,10 +88,10 @@ namespace TestObjectBuilderTests
             public void ExceptionIsThrownWhenTryToSpecifyExternalDependencyOfWrongType()
             {
                 // Arrange
-                ITestObjBuilder<Product> productBuilder = new ProductTestObjectBuilder();
                 Dependency2 dependencyOfWrongType = new Dependency2();
+
                 // Act
-                productBuilder = productBuilder.With(FirstDependency => dependencyOfWrongType);
+                this._productBuilder.With(FirstDependency => dependencyOfWrongType);
             }
         }
     }
