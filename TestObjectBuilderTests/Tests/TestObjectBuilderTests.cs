@@ -146,13 +146,15 @@ namespace TestObjectBuilderTests
         public class But : TestObjectBuilderMethodTest
         {
             [Test]
-            public void ButReturnsANewInstanceOfTheBuilder()
+            public void ButReturnsANewInstanceOfTheBuilderWithSameProperties()
             {
                 // Act
-                ITestObjBuilder<Product> builderFromBut = this._productBuilder.But();
+                ProductTestObjectBuilder builderFromBut = (ProductTestObjectBuilder)this._productBuilder.But();
 
                 // Assert
                 Assert.AreNotEqual(this._productBuilder, builderFromBut);
+                Assert.AreEqual(this._productBuilder.FirstDependency, builderFromBut.FirstDependency);
+                Assert.AreEqual(this._productBuilder.SecondDependency, builderFromBut.SecondDependency);
             }
         }
     }
