@@ -1,0 +1,8 @@
+*.dll
+*.exe
+*.user
+*.suo
+*TestResult.xml
+*VisualState.xml
+*/bin/*
+*/obj/*
