@@ -16,6 +16,9 @@ namespace TestObjectBuilderTests
      * - with()
      * - but()
      * - build()
+     * - add getDependency(dependency name) string.  With returns ITestObjBuilder<T>, which
+     *   has no visibility of the dependencies for a concrete class.  Thus you'd have to do,
+     *   builder.GetType().GetProperty("FirstDependency").GetValue(builder, null)
      * - product is simple class
      * - product uses inheritance
      * 
@@ -110,19 +113,19 @@ namespace TestObjectBuilderTests
             }
 
             [Test]
-            public void TwoExternalDependenciesAreUsedByProductWhenPassedInConsecutiveWithCalls()
+            public void TwoExternalDependenciesAreUsedByProductWhenPassedInConsecutiveChainedWithCalls()
             {
                 // Arrange
                 IDependency1 dependency1 = new DummyDependency1();
                 IDependency2 dependency2 = new DummyDependency2();
 
                 // Act
-                this._productBuilder.With(FirstDependency => dependency1);
-                this._productBuilder.With(SecondDependency => dependency2);
+                ITestObjBuilder<Product> builder = this._productBuilder.With(FirstDependency => dependency1).
+                    With(SecondDependency => dependency2);
 
                 // Assert
-                Assert.AreEqual(dependency1, this._productBuilder.FirstDependency);
-                Assert.AreEqual(dependency2, this._productBuilder.SecondDependency);
+                Assert.AreEqual(dependency1, builder.GetType().GetProperty("FirstDependency").GetValue(builder, null));
+                Assert.AreEqual(dependency2, builder.GetType().GetProperty("SecondDependency").GetValue(builder, null));
             }
         }
     }
