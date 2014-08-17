@@ -19,16 +19,19 @@ namespace TestObjectBuilderTests
      * done - add GetProperty(dependency name) string.  With returns ITestObjBuilder<T>, which
      *   has no visibility of the dependencies for a concrete class.  Thus you'd have to do,
      *   builder.GetType().GetProperty("FirstDependency").GetValue(builder, null)
-     * - product is simple class
-     * - product uses inheritance
      * 
+     * *** 
+     * - Add functionality to automatically generate a TestObjectBuilder from a class using reflection.
+     *   calls a default ctor, then sets all properties (public, private and protected) after construction.  
+     * 
+     * 
+     * - tests for product is simple class
+     * - tests for product uses inheritance
      * 
      * - Add a TestBuilderFactory class.  Don't want to do this in the tests because
      *   want to show class under test explicitly in the tests, thus, it may be an
      *   idea to add an examples project to show how that TestObject Builder could be used.
      *   
-     * - Add functionality to automatically generate a TestObjectBuilder from a class using reflection.
-     *   calls a default ctor, then sets all properties (public, private and protected) after construction.
      * 
      */
     public class TestObjectBuilderTests
