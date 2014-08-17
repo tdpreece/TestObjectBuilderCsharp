@@ -76,6 +76,17 @@ namespace TestObjectBuilderTests
                 // Act
                 productBuilder = productBuilder.With(PropertyNameThatDoesNotExist => externallySuppliedDependency1);
             }
+
+            [Test]
+            [ExpectedException(typeof(ArgumentException))]
+            public void ExceptionIsThrownWhenTryToSpecifyExternalDependencyOfWrongType()
+            {
+                // Arrange
+                ITestObjBuilder<Product> productBuilder = new ProductTestObjectBuilder();
+                Dependency2 dependencyOfWrongType = new Dependency2();
+                // Act
+                productBuilder = productBuilder.With(FirstDependency => dependencyOfWrongType);
+            }
         }
     }
 }

@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TestClassesAndDependencies\Dependency1.cs" />
+    <Compile Include="TestClassesAndDependencies\Dependency2.cs" />
     <Compile Include="TestClassesAndDependencies\DummyDependency1.cs" />
     <Compile Include="TestClassesAndDependencies\IDependency1.cs" />
     <Compile Include="TestClassesAndDependencies\Product.cs" />
