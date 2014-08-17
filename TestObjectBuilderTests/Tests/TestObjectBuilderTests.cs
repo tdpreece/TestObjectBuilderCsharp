@@ -13,7 +13,7 @@ namespace TestObjectBuilderTests
      * Tests to do:
      * done - Add a SimpleProduct class
      * done - Add a SimpleProductBuilder class (Needs: ctor, Build and properties).
-     * - with()
+     * done - with()
      * - but()
      * - build()
      * - add getDependency(dependency name) string.  With returns ITestObjBuilder<T>, which
@@ -56,23 +56,36 @@ namespace TestObjectBuilderTests
                 // Assert
                 Assert.IsInstanceOf(typeof(DummyDependency1), product.FirstDependency);
             }
+
+            [Test]
+            public void BuildWithExternallySpecifiedDependency1ResultsInProductUsingExternallySpecifiedDependency1()
+            {
+                // Arrange
+                DummyDependency1 externallySuppliedDependency1 = new DummyDependency1();
+                this._productBuilder.FirstDependency = externallySuppliedDependency1;
+
+                // Act
+                Product product = this._productBuilder.Build();
+
+                // Assert
+                Assert.AreEqual(externallySuppliedDependency1, product.FirstDependency);
+            }
         }
 
         [TestFixture]
         public class With : TestObjectBuilderMethodTest
         {
             [Test]
-            public void BuildWithExternallySpecifiedDependency1ResultsInProductUsingExternallySpecifiedDependency1()
+            public void CallToWithExternallySpecifiedDependency1SetsAssocitedPropertyOnBuilder()
             {
                 // Arrange
                 DummyDependency1 externallySuppliedDependency1 = new DummyDependency1();
 
                 // Act
                 this._productBuilder.With(FirstDependency => externallySuppliedDependency1);
-                Product product = this._productBuilder.Build();
 
                 // Assert
-                Assert.AreEqual(externallySuppliedDependency1, product.FirstDependency);
+                Assert.AreEqual(externallySuppliedDependency1, this._productBuilder.FirstDependency);
             }
 
             [Test]
