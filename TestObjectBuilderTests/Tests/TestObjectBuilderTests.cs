@@ -67,7 +67,7 @@ namespace TestObjectBuilderTests
 
             [Test]
             [ExpectedException(typeof(ArgumentException))]
-            public void ExceptionIsRaisedWhenTryToSpecifyExternalDependencyForPropertyThatDoesNotExist()
+            public void ExceptionIsThrownWhenTryToSpecifyExternalDependencyForPropertyThatDoesNotExist()
             {
                 // Arrange
                 DummyDependency1 externallySuppliedDependency1 = new DummyDependency1();
