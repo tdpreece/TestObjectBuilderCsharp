@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TestObjectBuilderTests
 {
-    class DummyDependency1 : IDependency1
+    public class DummyDependency1 : IDependency1
     {
 
     }

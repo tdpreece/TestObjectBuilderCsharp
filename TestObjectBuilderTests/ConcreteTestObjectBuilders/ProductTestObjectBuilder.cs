@@ -6,7 +6,7 @@ using TestObjectBuilder;
 
 namespace TestObjectBuilderTests
 {
-    class ProductTestObjectBuilder : TestObjBuilder<Product>
+    public class ProductTestObjectBuilder : TestObjBuilder<Product>
     {
         public ProductTestObjectBuilder()
         {
@@ -18,6 +18,6 @@ namespace TestObjectBuilderTests
             return new Product(this.FirstDependency);
         }
 
-        private IDependency1 FirstDependency { get; set; }
+        public IDependency1 FirstDependency { get; set; }
     }
 }

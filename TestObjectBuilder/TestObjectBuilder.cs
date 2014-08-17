@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using System.Reflection;
+
 namespace TestObjectBuilder
 {
     public abstract class TestObjBuilder<T> : ITestObjBuilder<T>
@@ -31,9 +33,17 @@ namespace TestObjectBuilder
             {
                 var propertyName = member.Method.GetParameters()[0].Name;
                 var propertyValue = member(string.Empty);
-                this.GetType()
-                    .GetProperty(propertyName)
-                        .SetValue(this, propertyValue, null);
+                Type builderType = this.GetType();
+                PropertyInfo propertyInfo = builderType.GetProperty(propertyName);
+                if (propertyInfo == null)
+                {
+                    string propertyNotImplementedErrorMsg = 
+                        String.Format("Object '{0}' does not implement a property called '{1}'", 
+                        builderType.Name, propertyName);
+                    throw new ArgumentException(propertyNotImplementedErrorMsg);
+                }
+                
+                propertyInfo.SetValue(this, propertyValue, null);
             };
 
             return (ITestObjBuilder<T>)this;

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TestObjectBuilderTests
 {
-    interface IDependency1
+    public interface IDependency1
     {
     }
 }

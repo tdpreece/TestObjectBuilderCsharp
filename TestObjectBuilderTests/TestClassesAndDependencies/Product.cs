@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TestObjectBuilderTests
 {
-    class Product
+    public class Product
     {
         public Product(IDependency1 firstDependency) 
         { 
