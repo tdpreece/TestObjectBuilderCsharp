@@ -10,7 +10,9 @@ namespace TestObjectBuilder
 {
     /**
      * 
-     * Taken from http://stackoverflow.com/questions/3862226/dynamically-create-a-class-in-c-sharp
+     * Taken from: 
+     * http://stackoverflow.com/questions/3862226/dynamically-create-a-class-in-c-sharp
+     * http://stackoverflow.com/questions/17519078/initializing-a-generic-variable-from-a-c-sharp-type-variable
      */
     public class TestObjectBuilderBuilder
     {
@@ -22,13 +24,14 @@ namespace TestObjectBuilder
             return myObject;
         }
 
-        public static Type CompileResultType(Type productType)
+        public static Type CompileResultType(Type finalProductType)
         {
-            TypeBuilder tb = GetTypeBuilder();
-            ConstructorBuilder constructor = tb.DefineDefaultConstructor(MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.RTSpecialName);
+            TypeBuilder tb = GetTypeBuilder(finalProductType);
+            ConstructorBuilder constructor = tb.DefineDefaultConstructor(
+                MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.RTSpecialName);
 
             PropertyInfo[] propertyInfos;
-            propertyInfos = productType.GetProperties();
+            propertyInfos = finalProductType.GetProperties();
             foreach (PropertyInfo propertyInfo in propertyInfos)
                 CreateProperty(tb, propertyInfo.Name, propertyInfo.PropertyType);
 
@@ -36,7 +39,7 @@ namespace TestObjectBuilder
             return objectType;
         }
 
-        private static TypeBuilder GetTypeBuilder()
+        private static TypeBuilder GetTypeBuilder(Type finalProductType)
         {
             var typeSignature = "MyDynamicType";
             var an = new AssemblyName(typeSignature);
@@ -49,7 +52,7 @@ namespace TestObjectBuilder
                                 TypeAttributes.AnsiClass |
                                 TypeAttributes.BeforeFieldInit |
                                 TypeAttributes.AutoLayout
-                                , null);
+                                , typeof(TestObjBuilder<>).MakeGenericType(finalProductType));
             return tb;
         }
 

@@ -9,7 +9,10 @@ namespace TestObjectBuilder
 {
     public abstract class TestObjBuilder<T> : ITestObjBuilder<T>
     {
-        public abstract T Build();
+        public virtual T Build()
+        {
+            return (T)Activator.CreateInstance(typeof(T));
+        }
 
         // <summary>
         // Returns a memberwise clone of the current builder.

@@ -7,6 +7,11 @@ namespace TestObjectBuilderTests
 {
     public class Product
     {
+        public Product()
+        {
+
+        }
+
         public Product(IDependency1 firstDependency) 
         { 
             this._firstDependency = firstDependency;
