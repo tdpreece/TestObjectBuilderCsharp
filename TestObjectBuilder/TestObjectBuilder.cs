@@ -9,6 +9,16 @@ namespace TestObjectBuilder
 {
     public abstract class TestObjBuilder<T> : ITestObjBuilder<T>
     {
+
+        #region "Constructors"
+        public TestObjBuilder()
+        {
+            this.InitialiseBuilderProperties();
+        }
+        #endregion
+
+
+        #region "Public Methods"
         public virtual T Build()
         {
             return (T)Activator.CreateInstance(typeof(T));
@@ -51,7 +61,9 @@ namespace TestObjectBuilder
         {
             return this.GetPropertyInfoForProperty(propertyName).GetValue(this, null);
         }
+        #endregion
 
+        #region "protected methods"
         protected PropertyInfo GetPropertyInfoForProperty(string propertyName)
         {
             Type builderType = this.GetType();
@@ -65,5 +77,17 @@ namespace TestObjectBuilder
             }
             return propertyInfo;
         }
+
+        protected void InitialiseBuilderProperties()
+        {
+            PropertyInfo[] propertyInfos;
+            propertyInfos = this.GetType().GetProperties();
+            foreach (PropertyInfo propertyInfo in propertyInfos)
+            {
+                propertyInfo.SetValue(this, null, null);
+            }
+        }
+
+        #endregion
     }
 }

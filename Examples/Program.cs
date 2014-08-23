@@ -15,7 +15,7 @@ namespace Examples
         
         static void Main(string[] args)
         {
-            object myBuilder = TestObjectBuilderBuilder.CreateNewObject(typeof(Product));
+            ITestObjBuilder<Product> myBuilder = TestObjectBuilderBuilder<Product>.CreateNewObject();
             Console.WriteLine(myBuilder.GetType());
             PropertyInfo[] propertyInfos;
             propertyInfos = myBuilder.GetType().GetProperties();
@@ -23,7 +23,12 @@ namespace Examples
             {
                 Console.WriteLine(propertyInfo.Name);
                 Console.WriteLine(propertyInfo.PropertyType);
+                Console.WriteLine(propertyInfo.GetValue(myBuilder, null));
             }
+
+            Product p = myBuilder.Build();
+            Console.WriteLine(p.FirstDependency);
+            Console.WriteLine(p.SecondDependency);
 
             Console.ReadKey();
         }

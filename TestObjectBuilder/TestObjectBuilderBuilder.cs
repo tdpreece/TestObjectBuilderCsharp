@@ -14,14 +14,15 @@ namespace TestObjectBuilder
      * http://stackoverflow.com/questions/3862226/dynamically-create-a-class-in-c-sharp
      * http://stackoverflow.com/questions/17519078/initializing-a-generic-variable-from-a-c-sharp-type-variable
      */
-    public class TestObjectBuilderBuilder
+    public class TestObjectBuilderBuilder<T>
     {
 
-        public static object CreateNewObject(Type finalProductType)
+        public static ITestObjBuilder<T> CreateNewObject()
         {
+            Type finalProductType = typeof(T);
             var myType = CompileResultType(finalProductType);
             var myObject = Activator.CreateInstance(myType);
-            return myObject;
+            return (ITestObjBuilder<T>)myObject;
         }
 
         public static Type CompileResultType(Type finalProductType)
