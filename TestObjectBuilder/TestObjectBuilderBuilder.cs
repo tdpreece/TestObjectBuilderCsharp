@@ -20,19 +20,19 @@ namespace TestObjectBuilder
         public static ITestObjBuilder<T> CreateNewObject()
         {
             Type finalProductType = typeof(T);
-            var myType = CompileResultType(finalProductType);
+            var myType = CompileResultType();
             var myObject = Activator.CreateInstance(myType);
             return (ITestObjBuilder<T>)myObject;
         }
 
-        public static Type CompileResultType(Type finalProductType)
+        public static Type CompileResultType()
         {
-            TypeBuilder tb = GetTypeBuilder(finalProductType);
+            TypeBuilder tb = GetTypeBuilder();
             ConstructorBuilder constructor = tb.DefineDefaultConstructor(
                 MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.RTSpecialName);
 
             PropertyInfo[] propertyInfos;
-            propertyInfos = finalProductType.GetProperties();
+            propertyInfos = typeof(T).GetProperties();
             foreach (PropertyInfo propertyInfo in propertyInfos)
                 CreateProperty(tb, propertyInfo.Name, propertyInfo.PropertyType);
 
@@ -40,7 +40,7 @@ namespace TestObjectBuilder
             return objectType;
         }
 
-        private static TypeBuilder GetTypeBuilder(Type finalProductType)
+        private static TypeBuilder GetTypeBuilder()
         {
             var typeSignature = "MyDynamicType";
             var an = new AssemblyName(typeSignature);
@@ -53,7 +53,7 @@ namespace TestObjectBuilder
                                 TypeAttributes.AnsiClass |
                                 TypeAttributes.BeforeFieldInit |
                                 TypeAttributes.AutoLayout
-                                , typeof(TestObjBuilder<>).MakeGenericType(finalProductType));
+                                , typeof(TestObjBuilder<T>));
             return tb;
         }
 
