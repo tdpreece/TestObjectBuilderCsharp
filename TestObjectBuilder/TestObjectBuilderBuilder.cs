@@ -34,7 +34,16 @@ namespace TestObjectBuilder
             PropertyInfo[] propertyInfos;
             propertyInfos = typeof(T).GetProperties();
             foreach (PropertyInfo propertyInfo in propertyInfos)
-                CreateProperty(tb, propertyInfo.Name, propertyInfo.PropertyType);
+            {
+                if (propertyInfo.CanWrite != null)
+                {
+                    /** 
+                     * Need setter to be definied on a product in order to set 
+                     * the value after it has been constructed.
+                     */
+                    CreateProperty(tb, propertyInfo.Name, propertyInfo.PropertyType);
+                }
+            }
 
             Type objectType = tb.CreateType();
             return objectType;
