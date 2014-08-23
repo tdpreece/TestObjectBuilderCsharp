@@ -21,7 +21,9 @@ namespace TestObjectBuilder
         #region "Public Methods"
         public virtual T Build()
         {
-            return (T)Activator.CreateInstance(typeof(T));
+            T product = (T)Activator.CreateInstance(typeof(T));
+            InitialiseProductProperties(product);
+            return product;
         }
 
         // <summary>
@@ -85,6 +87,17 @@ namespace TestObjectBuilder
             foreach (PropertyInfo propertyInfo in propertyInfos)
             {
                 propertyInfo.SetValue(this, null, null);
+            }
+        }
+
+        protected void InitialiseProductProperties(T product)
+        {
+            PropertyInfo[] propertyInfos;
+            propertyInfos = product.GetType().GetProperties();
+            foreach (PropertyInfo propertyInfo in propertyInfos)
+            {
+                object builderPropertyValue = GetPropertyInfoForProperty(propertyInfo.Name).GetValue(this, null);
+                propertyInfo.SetValue(product, builderPropertyValue, null);
             }
         }
 

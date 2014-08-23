@@ -20,6 +20,7 @@ namespace TestObjectBuilderTests
         public IDependency1 FirstDependency
         {
             get { return this._firstDependency; }
+            private set { this._firstDependency = value; }
         }
 
         public IDependency2 SecondDependency { get; set; }

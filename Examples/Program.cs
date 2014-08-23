@@ -27,8 +27,13 @@ namespace Examples
             }
 
             Product p = myBuilder.Build();
-            Console.WriteLine(p.FirstDependency);
-            Console.WriteLine(p.SecondDependency);
+            Console.WriteLine((p.FirstDependency == null));
+            Console.WriteLine((p.SecondDependency == null));
+
+            DummyDependency1 externallySuppliedDependency1 = new DummyDependency1();
+            Product p2 = myBuilder.With(FirstDependency => externallySuppliedDependency1).Build();
+            Console.WriteLine((p2.FirstDependency == null));
+            Console.WriteLine((p2.SecondDependency == null));
 
             Console.ReadKey();
         }
