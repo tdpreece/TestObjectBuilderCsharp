@@ -69,6 +69,40 @@ namespace TestObjectBuilderTests.Tests
                 Assert.Contains(Tuple.Create<string, Type>("FirstDependency", typeof(IDependency1)), builderProperties);
                 Assert.Contains(Tuple.Create<string, Type>("SecondDependency", typeof(IDependency2)), builderProperties);
             }
+
+            [Test]
+            public void ProductBuilderHasPublicReadWritePropertyWhenProductHasPrivatelySetProperty()
+            {
+                // Arrange
+                String privatelySetPropertyName = "PrivatelySetProperty";
+
+                // Preconditions
+                PropertyInfo productPrivateProperty = typeof(ProductWithPropertyWithPrivateSetter).
+                    GetProperty(privatelySetPropertyName);
+                Assert.IsTrue(productPrivateProperty.CanWrite); // A setter exists.
+                Assert.IsNull(productPrivateProperty.GetSetMethod()); // Public setter doesn't exist.
+
+                // Act
+                ITestObjBuilder<ProductWithPropertyWithPrivateSetter> builder =
+                    TestObjectBuilderBuilder<ProductWithPropertyWithPrivateSetter>.CreateNewObject();
+
+                // Assert
+                PropertyInfo[] propertyInfos;
+                propertyInfos = builder.GetType().GetProperties();
+                // Tuple<property name, type, has public setter>
+                List<Tuple<string, Type, bool>> builderProperties = new List<Tuple<string, Type, bool>>();
+                foreach (PropertyInfo propertyInfo in propertyInfos)
+                {
+                    builderProperties.Add(Tuple.Create<string, Type, bool>(
+                        propertyInfo.Name, 
+                        propertyInfo.PropertyType, 
+                        propertyInfo.GetSetMethod() != null));
+                }
+
+                Tuple<string, Type, bool> propertyPrivateInProductPublicInBuilder = 
+                    Tuple.Create<string, Type, bool>("PrivatelySetProperty", typeof(IDependency1), true);
+                Assert.Contains(propertyPrivateInProductPublicInBuilder, builderProperties);
+            }
         }
     }
 }
