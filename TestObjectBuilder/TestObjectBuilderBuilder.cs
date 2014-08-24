@@ -19,6 +19,16 @@ namespace TestObjectBuilder
 
         public static ITestObjBuilder<T> CreateNewObject()
         {
+            return CreateNewObject(null);
+        }
+
+        /**
+         * TODO: 
+         * - Create additional properties on the builder for ctorArgs.
+         * - Have build method use these args to build the product.
+         */ 
+        public static ITestObjBuilder<T> CreateNewObject(List<Tuple<object, string>> ctorArgs)
+        {
             Type finalProductType = typeof(T);
             var myType = CompileResultType();
             var myObject = Activator.CreateInstance(myType);
