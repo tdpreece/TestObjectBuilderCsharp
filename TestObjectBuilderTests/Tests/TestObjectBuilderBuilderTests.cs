@@ -91,6 +91,24 @@ namespace TestObjectBuilderTests.Tests
                 Assert.Contains(propertyPrivateInProductPublicInBuilder, builderProperties);
             }
 
+            [Test]
+            public void BuilderHasPropertiesForConstructorArgumentsSpecified()
+            {
+                // Arrange
+                Tuple<string, Type> arg1 = Tuple.Create("Arg1", typeof(IDependency1));
+                Tuple<string, Type> arg2 = Tuple.Create("Arg2", typeof(IDependency1));
+                List<Tuple<string, Type>> ctorArgs = new List<Tuple<string, Type>> { arg1, arg2 };
+
+                // Act
+                ITestObjBuilder<ProductWithoutProperties> builder =
+    TestObjectBuilderBuilder<ProductWithoutProperties>.CreateNewObject(ctorArgs);
+                
+                // Assert
+                List<Tuple<string, Type, bool>> builderProperties = GetListOfPropertyNameTypeAccessibility(builder.GetType());
+                Assert.Contains(Tuple.Create(arg1.Item1, arg1.Item2, true), builderProperties);
+            }
+
+
             /**
              * <summary>
              * Returns a list list of tuples which describe the name, type

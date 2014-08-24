@@ -27,15 +27,15 @@ namespace TestObjectBuilder
          * - Create additional properties on the builder for ctorArgs.
          * - Have build method use these args to build the product.
          */ 
-        public static ITestObjBuilder<T> CreateNewObject(List<Tuple<object, string>> ctorArgs)
+        public static ITestObjBuilder<T> CreateNewObject(List<Tuple<string, Type>> ctorArgs)
         {
             Type finalProductType = typeof(T);
-            var myType = CompileResultType();
+            var myType = CompileResultType(ctorArgs);
             var myObject = Activator.CreateInstance(myType);
             return (ITestObjBuilder<T>)myObject;
         }
 
-        public static Type CompileResultType()
+        public static Type CompileResultType(List<Tuple<string, Type>> ctorArgs)
         {
             TypeBuilder tb = GetTypeBuilder();
             ConstructorBuilder constructor = tb.DefineDefaultConstructor(
@@ -54,6 +54,15 @@ namespace TestObjectBuilder
                     CreateProperty(tb, propertyInfo.Name, propertyInfo.PropertyType);
                 }
             }
+
+            if ( ctorArgs != null )
+            {
+                foreach (Tuple<string, Type> ctorArg in ctorArgs)
+                {
+                    CreateProperty(tb, ctorArg.Item1, ctorArg.Item2);
+                }
+            }
+            
 
             Type objectType = tb.CreateType();
             return objectType;
