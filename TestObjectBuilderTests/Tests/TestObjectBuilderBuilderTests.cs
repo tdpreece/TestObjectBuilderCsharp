@@ -15,19 +15,27 @@ namespace TestObjectBuilderTests.Tests
         public class CreateNewObject
         {
             [Test]
-            public void CreatesProductWithoutPropertiesAndAZeroArgConstructor()
+            public void ProductBuilderCreateBuildsObjectsOfTypeProduct()
             {
                 // Arrange
-                ITestObjBuilder<ProductWithoutProperties> builder = 
-                    TestObjectBuilderBuilder<ProductWithoutProperties>.CreateNewObject();
-
                 // Act
-                ProductWithoutProperties product = builder.Build();
-
+                ITestObjBuilder<ProductWithoutProperties> builder =
+    TestObjectBuilderBuilder<ProductWithoutProperties>.CreateNewObject();
                 // Assert
-                Assert.NotNull(product);
+                Assert.AreSame(typeof(ProductWithoutProperties), builder.GetType().GetMethod("Build").ReturnType);
             }
 
+            [Test]
+            public void ProductBuilderHasNoPropertiesWhenProductHasNoProperties()
+            {
+                // Arrange
+                // Act
+                ITestObjBuilder<ProductWithoutProperties> builder =
+                    TestObjectBuilderBuilder<ProductWithoutProperties>.CreateNewObject();
+
+                // Assert
+                Assert.AreEqual(0, builder.GetType().GetProperties().Count());
+            }
         }
     }
 }
