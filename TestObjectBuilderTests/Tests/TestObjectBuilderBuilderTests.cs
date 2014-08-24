@@ -59,15 +59,12 @@ namespace TestObjectBuilderTests.Tests
     TestObjectBuilderBuilder<ProductWithTwoPublicReadWriteProperties>.CreateNewObject();
 
                 // Assert
-                PropertyInfo[] propertyInfos;
-                propertyInfos = builder.GetType().GetProperties();
-                List<Tuple<string, Type>> builderProperties = new List<Tuple<string, Type>>();
-                foreach (PropertyInfo propertyInfo in propertyInfos)
-                {
-                    builderProperties.Add(Tuple.Create<string, Type>(propertyInfo.Name, propertyInfo.PropertyType));
-                }
-                Assert.Contains(Tuple.Create<string, Type>("FirstDependency", typeof(IDependency1)), builderProperties);
-                Assert.Contains(Tuple.Create<string, Type>("SecondDependency", typeof(IDependency2)), builderProperties);
+                List<Tuple<string, Type, bool>> builderProperties = GetListOfPropertyNameTypeAccessibility(builder.GetType());
+
+                Assert.Contains(Tuple.Create<string, Type, bool>("FirstDependency", typeof(IDependency1), true), 
+                    builderProperties);
+                Assert.Contains(Tuple.Create<string, Type, bool>("SecondDependency", typeof(IDependency2), true), 
+                    builderProperties);
             }
 
             [Test]
@@ -95,8 +92,12 @@ namespace TestObjectBuilderTests.Tests
             }
 
             /**
+             * <summary>
+             * Returns a list list of tuples which describe the name, type
+             * and setter accessibility for each property of the type provided.
+             * </summary>
              * <returns>
-             * List of Tuples of <property name, type, property has public setter?>
+             * List of Tuples of property name, type, property has public setter?
              * </returns>
              */
             private List<Tuple<string, Type, bool>> GetListOfPropertyNameTypeAccessibility(Type inputType)
