@@ -54,6 +54,7 @@
     <Compile Include="ConcreteTestObjectBuilders\ProductTestObjectBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestClassesAndDependencies\ProductWithoutProperties.cs" />
+    <Compile Include="TestClassesAndDependencies\ProductWithTwoPublicReadWriteProperties.cs" />
     <Compile Include="TestClassesAndDependencies\ProductWithZeroArgumentConstructor.cs" />
     <Compile Include="Tests\TestObjectBuilderBuilderTests.cs" />
     <Compile Include="Tests\TestObjectBuilderTests.cs" />
