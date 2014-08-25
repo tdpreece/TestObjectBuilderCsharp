@@ -108,7 +108,7 @@ namespace TestObjectBuilderTests.Tests
 
                 // Assert
                 List<Tuple<string, Type, bool>> builderProperties = GetListOfPropertyNameTypeAccessibility(builder.GetType());
-                Assert.IsNull(builder.GetType().GetProperty(propertyWithoutSetterName));
+                    Assert.IsNull(builder.GetType().GetProperty(propertyWithoutSetterName));
             }
 
             [Test]

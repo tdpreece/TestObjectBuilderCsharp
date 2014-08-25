@@ -25,43 +25,5 @@ namespace TestObjectBuilder
         {
             return (TestObjectConstructorArgument)List[index];
         }
-
-        /// <summary>
-        /// Returns true if a TestObjectConstructorArgument with matching name
-        /// exists in this list otherwise returns false.
-        /// </summary>
-        /// <param name="name">Name of constructor argument.</param>
-        /// <returns>
-        /// true if a TestObjectConstructorArgument with matching name exists in this list otherwise returns false.
-        /// </returns>
-        public bool ContainsArgumentWithName(string name)
-        {
-            foreach (TestObjectConstructorArgument arg in List)
-            {
-                if (name == arg.ArgumentName)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// Returns a TestObjectConstructorArgument with a matching name or
-        /// null if no match is found.
-        /// </summary>
-        /// <param name="name">Name of constructor argument to search for.</param>
-        /// <returns>TestObjectConstructorArgument or null if no match is found.</returns>
-        public TestObjectConstructorArgument GetArgumentByName(string name)
-        {
-            foreach (TestObjectConstructorArgument arg in List)
-            {
-                if (name == arg.ArgumentName)
-                {
-                    return arg;
-                }
-            }
-            return null;
-        }
     }
 }

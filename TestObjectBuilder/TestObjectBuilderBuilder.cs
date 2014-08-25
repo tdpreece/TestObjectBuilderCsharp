@@ -41,51 +41,10 @@ namespace TestObjectBuilder
             ConstructorBuilder constructor = tb.DefineDefaultConstructor(
                 MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.RTSpecialName);
 
-            if ( ctorArgs != null )
+            Dictionary<string, Type> propertiesToAdd = GetPropertiesToAddToBuilder(ctorArgs);
+            foreach (KeyValuePair<string, Type> property in propertiesToAdd)
             {
-                foreach (TestObjectConstructorArgument ctorArg in ctorArgs)
-                {
-                    CreateProperty(tb, ctorArg.ArgumentName, ctorArg.ArgumentType);
-                }
-            }
-
-            PropertyInfo[] propertyInfos;
-            propertyInfos = typeof(T).GetProperties();
-            foreach (PropertyInfo propertyInfo in propertyInfos)
-            {
-                /** 
-                 * Need setter to be definied on a product in order to set 
-                 * the value after it has been constructed.
-                 */
-                if ( propertyInfo.CanWrite )
-                {
-                    if (null == ctorArgs)
-                    {
-                        CreateProperty(tb, propertyInfo.Name, propertyInfo.PropertyType);
-                    }
-                    else
-                    {
-                        TestObjectConstructorArgument ctorArg = ctorArgs.GetArgumentByName(propertyInfo.Name);
-                        if (null != ctorArg)
-                        {
-                            if (ctorArg.ArgumentType == propertyInfo.PropertyType)
-                            {
-                                continue;
-                            }
-                            else
-                            {
-                                throw new ArgumentException(String.Format("Constructor argument '{0}' of type {1} " +
-                                    "has same name but different type to a property of {2}.  The name of the " +
-                                    "constructor argument should be changed.", ctorArg.ArgumentName,
-                                    ctorArg.ArgumentType, typeof(T)));
-                            }
-                        }
-                        else
-                        {
-                            CreateProperty(tb, propertyInfo.Name, propertyInfo.PropertyType);
-                        }
-                    }
-                }
+                CreateProperty(tb, property.Key, property.Value);
             }
 
             Type objectType = tb.CreateType();
@@ -144,6 +103,59 @@ namespace TestObjectBuilder
 
             propertyBuilder.SetGetMethod(getPropMthdBldr);
             propertyBuilder.SetSetMethod(setPropMthdBldr);
+        }
+
+        /// <summary>
+        /// Inspects the product type and client supplied constructor arguments and 
+        /// retruns a list of properties that should be added to a TestObjectBuilder 
+        /// for the product. 
+        /// </summary>
+        /// <param name="constructorArguments">TestObjectConstructorArgumentList</param>
+        /// <returns>Dictionary of {property name, property type}</returns>
+        private static Dictionary<string, Type> GetPropertiesToAddToBuilder(TestObjectConstructorArgumentList constructorArguments)
+        {
+            Dictionary<string, Type> propertiesToAdd = new Dictionary<string, Type>();
+
+            PropertyInfo[] propertyInfos = typeof(T).GetProperties();
+            foreach (PropertyInfo propertyInfo in propertyInfos)
+            {
+                /** 
+                 * Need setter to be definied on a product in order to set 
+                 * the value after it has been constructed.
+                 */
+                if (propertyInfo.CanWrite)
+                {
+                    propertiesToAdd.Add(propertyInfo.Name, propertyInfo.PropertyType);
+                }
+            }
+
+            if (constructorArguments != null)
+            {
+                foreach (TestObjectConstructorArgument ctorArg in constructorArguments)
+                {
+                    if ( propertiesToAdd.ContainsKey(ctorArg.ArgumentName) )
+                    {
+                        if (propertiesToAdd[ctorArg.ArgumentName] == ctorArg.ArgumentType)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            throw new ArgumentException(String.Format("Constructor argument '{0}' of type {1} " +
+                                "has same name but different type to a property of {2}.  The name of the " +
+                                "constructor argument should be changed.", ctorArg.ArgumentName,
+                                ctorArg.ArgumentType, typeof(T)));
+                        }
+                    }
+                    else
+                    {
+                        propertiesToAdd.Add(ctorArg.ArgumentName, ctorArg.ArgumentType);
+                    }
+                }
+            }
+
+            return propertiesToAdd;
+
         }
     }
 }
