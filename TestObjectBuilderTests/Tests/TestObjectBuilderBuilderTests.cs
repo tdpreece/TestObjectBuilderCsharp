@@ -95,19 +95,37 @@ namespace TestObjectBuilderTests.Tests
             public void BuilderHasPropertiesForConstructorArgumentsSpecified()
             {
                 // Arrange
-                Tuple<string, Type> arg1 = Tuple.Create("Arg1", typeof(IDependency1));
-                Tuple<string, Type> arg2 = Tuple.Create("Arg2", typeof(IDependency1));
-                List<Tuple<string, Type>> ctorArgs = new List<Tuple<string, Type>> { arg1, arg2 };
+                TestObjectConstructorArgument arg1 = 
+                    new TestObjectConstructorArgument("Arg1", typeof(IDependency1));
+                TestObjectConstructorArgument arg2 =
+                    new TestObjectConstructorArgument("Arg2", typeof(IDependency1));
+                TestObjectConstructorArgumentList constructorArguments =
+                    new TestObjectConstructorArgumentList() { arg1, arg2 };
 
                 // Act
                 ITestObjBuilder<ProductWithoutProperties> builder =
-    TestObjectBuilderBuilder<ProductWithoutProperties>.CreateNewObject(ctorArgs);
+    TestObjectBuilderBuilder<ProductWithoutProperties>.CreateNewObject(constructorArguments);
                 
                 // Assert
                 List<Tuple<string, Type, bool>> builderProperties = GetListOfPropertyNameTypeAccessibility(builder.GetType());
-                Assert.Contains(Tuple.Create(arg1.Item1, arg1.Item2, true), builderProperties);
+                Assert.Contains(Tuple.Create(arg1.ArgumentName, arg1.ArgumentType, true), builderProperties);
+                Assert.Contains(Tuple.Create(arg2.ArgumentName, arg2.ArgumentType, true), builderProperties);
             }
 
+            [Test]
+            [ExpectedException(typeof(ArgumentException))]
+            public void BuilderBuilderThrowsExceptionWhenAConstructorArgSharesANameButNotTypeWithAProductProperty()
+            {
+                // Arrange
+                TestObjectConstructorArgument arg1 =
+                    new TestObjectConstructorArgument("FirstDependency", typeof(IDependency2));
+                TestObjectConstructorArgumentList constructorArguments =
+                    new TestObjectConstructorArgumentList() { arg1 };
+
+                // Act
+                ITestObjBuilder<ProductWithTwoPublicReadWriteProperties> builder =
+                    TestObjectBuilderBuilder<ProductWithTwoPublicReadWriteProperties>.CreateNewObject(constructorArguments);
+            }
 
             /**
              * <summary>

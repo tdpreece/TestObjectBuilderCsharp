@@ -27,7 +27,7 @@ namespace TestObjectBuilder
          * - Create additional properties on the builder for ctorArgs.
          * - Have build method use these args to build the product.
          */ 
-        public static ITestObjBuilder<T> CreateNewObject(List<Tuple<string, Type>> ctorArgs)
+        public static ITestObjBuilder<T> CreateNewObject(TestObjectConstructorArgumentList ctorArgs)
         {
             Type finalProductType = typeof(T);
             var myType = CompileResultType(ctorArgs);
@@ -35,34 +35,58 @@ namespace TestObjectBuilder
             return (ITestObjBuilder<T>)myObject;
         }
 
-        public static Type CompileResultType(List<Tuple<string, Type>> ctorArgs)
+        public static Type CompileResultType(TestObjectConstructorArgumentList ctorArgs)
         {
             TypeBuilder tb = GetTypeBuilder();
             ConstructorBuilder constructor = tb.DefineDefaultConstructor(
                 MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.RTSpecialName);
 
+            if ( ctorArgs != null )
+            {
+                foreach (TestObjectConstructorArgument ctorArg in ctorArgs)
+                {
+                    CreateProperty(tb, ctorArg.ArgumentName, ctorArg.ArgumentType);
+                }
+            }
+
             PropertyInfo[] propertyInfos;
             propertyInfos = typeof(T).GetProperties();
             foreach (PropertyInfo propertyInfo in propertyInfos)
             {
-                if (propertyInfo.CanWrite != null)
+                /** 
+                 * Need setter to be definied on a product in order to set 
+                 * the value after it has been constructed.
+                 */
+                if ( propertyInfo.CanWrite )
                 {
-                    /** 
-                     * Need setter to be definied on a product in order to set 
-                     * the value after it has been constructed.
-                     */
-                    CreateProperty(tb, propertyInfo.Name, propertyInfo.PropertyType);
+                    if (null == ctorArgs)
+                    {
+                        CreateProperty(tb, propertyInfo.Name, propertyInfo.PropertyType);
+                    }
+                    else
+                    {
+                        TestObjectConstructorArgument ctorArg = ctorArgs.GetArgumentByName(propertyInfo.Name);
+                        if (null != ctorArg)
+                        {
+                            if (ctorArg.ArgumentType == propertyInfo.PropertyType)
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                throw new ArgumentException(String.Format("Constructor argument '{0}' of type {1} " +
+                                    "has same name but different type to a property of {2}.  The name of the " +
+                                    "constructor argument should be changed.", ctorArg.ArgumentName,
+                                    ctorArg.ArgumentType, typeof(T)));
+                            }
+                        }
+                        else
+                        {
+                            CreateProperty(tb, propertyInfo.Name, propertyInfo.PropertyType);
+                        }
+                    }
                 }
             }
-
-            if ( ctorArgs != null )
-            {
-                foreach (Tuple<string, Type> ctorArg in ctorArgs)
-                {
-                    CreateProperty(tb, ctorArg.Item1, ctorArg.Item2);
-                }
-            }
-            
 
             Type objectType = tb.CreateType();
             return objectType;
