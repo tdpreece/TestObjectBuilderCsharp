@@ -12,10 +12,8 @@ namespace TestObjectBuilderTests
         {
             this.FirstDependency = new DummyDependency1();
             this.SecondDependency = new DummyDependency2();
-            this.ConstructorArgumentPropertyNames = new List<string>() { "FirstDependency" };
+            this.PropertiesUsedByProductConstructor = new List<string>() { "FirstDependency" };
         }
-
-        public List<string> ConstructorArgumentPropertyNames { get; set; }
 
         public IDependency1 FirstDependency { get; set; }
         public IDependency2 SecondDependency { get; set; }
