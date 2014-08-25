@@ -92,6 +92,26 @@ namespace TestObjectBuilderTests.Tests
             }
 
             [Test]
+            public void BuilderDoesNotHavePropertyWhenProductPropertyDoesNotHaveSetter()
+            {
+                // Arrange
+                String propertyWithoutSetterName = "PropertyWithoutSetter";
+
+                // Preconditions
+                PropertyInfo productPrivateProperty = typeof(ProductWithPropertyWithoutSetter).
+                    GetProperty(propertyWithoutSetterName);
+                Assert.IsFalse(productPrivateProperty.CanWrite); // A setter exists.
+
+                // Act
+                ITestObjBuilder<ProductWithPropertyWithoutSetter> builder =
+    TestObjectBuilderBuilder<ProductWithPropertyWithoutSetter>.CreateNewObject();
+
+                // Assert
+                List<Tuple<string, Type, bool>> builderProperties = GetListOfPropertyNameTypeAccessibility(builder.GetType());
+                Assert.IsNull(builder.GetType().GetProperty(propertyWithoutSetterName));
+            }
+
+            [Test]
             public void BuilderHasPropertiesForConstructorArgumentsSpecified()
             {
                 // Arrange
