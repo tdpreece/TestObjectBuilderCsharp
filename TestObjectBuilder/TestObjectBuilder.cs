@@ -21,7 +21,15 @@ namespace TestObjectBuilder
         #region "Public Methods"
         public virtual T Build()
         {
-            T product = (T)Activator.CreateInstance(typeof(T));
+            T product;
+            if (0 == this.PropertiesUsedByProductConstructor.Count())
+            {
+                product = (T)Activator.CreateInstance(typeof(T));
+            }
+            else
+            {
+                product = (T)Activator.CreateInstance(typeof(T), this.GetConstructorArguments());
+            }
             InitialiseProductProperties(product);
             return product;
         }
@@ -65,6 +73,10 @@ namespace TestObjectBuilder
         }
         #endregion
 
+        #region "Public Properties"
+        public List<string> PropertiesUsedByProductConstructor = new List<string>();
+        #endregion
+
         #region "protected methods"
         protected PropertyInfo GetPropertyInfoForProperty(string propertyName)
         {
@@ -101,6 +113,14 @@ namespace TestObjectBuilder
             }
         }
 
+        protected object[] GetConstructorArguments()
+        {
+            List<object> ctorValues = new List<object>();
+            foreach (string argName in this.PropertiesUsedByProductConstructor)
+                ctorValues.Add(this.GetProperty(argName));
+            object[] ctorArgs = ctorValues.ToArray();
+            return ctorArgs;
+        }
         #endregion
     }
 }

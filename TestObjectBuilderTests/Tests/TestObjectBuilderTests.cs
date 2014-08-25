@@ -79,7 +79,7 @@ namespace TestObjectBuilderTests
             {
                 // Arrange
                 IDependency1 arg1 = new Dependency1();
-                this._productBuilder.ConstructorArgumentPropertyNames = new List<string>() { "FirstDependency" };
+                this._productBuilder.PropertiesUsedByProductConstructor = new List<string>() { "FirstDependency" };
                 this._productBuilder.FirstDependency = arg1;
 
                 // Act
