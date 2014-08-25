@@ -73,6 +73,22 @@ namespace TestObjectBuilderTests
                 // Assert
                 Assert.AreEqual(externallySuppliedDependency1, product.FirstDependency);
             }
+
+            [Test]
+            public void ProductInstantiatedUsingConstructorArguementsWhenSpecified()
+            {
+                // Arrange
+                IDependency1 arg1 = new Dependency1();
+                this._productBuilder.ConstructorArgumentPropertyNames = new List<string>() { "FirstDependency" };
+                this._productBuilder.FirstDependency = arg1;
+
+                // Act
+                Product product = this._productBuilder.Build();
+
+                // Assert
+                Assert.Contains(arg1, product.constructorArgsUsed);
+                Assert.AreEqual(1, product.constructorArgsUsed.Count());
+            }
         }
 
         [TestFixture]

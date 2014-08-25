@@ -9,11 +9,11 @@ namespace TestObjectBuilderTests
     {
         public Product()
         {
-
         }
 
         public Product(IDependency1 firstDependency) 
-        { 
+        {
+            constructorArgsUsed.Add(firstDependency);
             this._firstDependency = firstDependency;
         }
 
@@ -27,5 +27,6 @@ namespace TestObjectBuilderTests
 
         private IDependency1 _firstDependency;
 
+        public List<object> constructorArgsUsed = new List<object>();
     }
 }

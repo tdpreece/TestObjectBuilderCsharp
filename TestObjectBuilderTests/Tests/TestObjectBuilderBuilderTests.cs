@@ -137,7 +137,7 @@ namespace TestObjectBuilderTests.Tests
             public void BuilderBuilderThrowsExceptionWhenAConstructorArgSharesANameButNotTypeWithAProductProperty()
             {
                 // Arrange
-                TestObjectConstructorArgument arg1 =
+                TestObjectConstructorArgument arg1 = 
                     new TestObjectConstructorArgument("FirstDependency", typeof(IDependency2));
                 TestObjectConstructorArgumentList constructorArguments =
                     new TestObjectConstructorArgumentList() { arg1 };
