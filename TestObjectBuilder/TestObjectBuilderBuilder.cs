@@ -24,7 +24,6 @@ namespace TestObjectBuilder
 
         public static ITestObjBuilder<T> CreateNewObject(TestObjectConstructorArgumentList ctorArgs)
         {
-            Type finalProductType = typeof(T);
             var myType = CompileResultType(ctorArgs);
             ITestObjBuilder<T> testObjectBuilder = (ITestObjBuilder<T>)Activator.CreateInstance(myType);
             testObjectBuilder.PropertiesUsedByProductConstructor = GetNamesProductConstructorArguements(ctorArgs);
