@@ -28,29 +28,6 @@ namespace TestObjectBuilderTests.Tests
             }
 
             [Test]
-            public void ProductBuilderHasNoPropertiesWhenProductHasNoProperties()
-            {
-                // Arrange
-                // Act
-                ITestObjBuilder<ProductWithoutProperties> builder =
-                    TestObjectBuilderBuilder<ProductWithoutProperties>.CreateNewObject();
-
-                // Assert
-                Assert.AreEqual(0, builder.GetType().GetProperties().Count());
-            }
-
-            [Test]
-            public void ProductBuilderHasTwoProperitesWhenProductHasTwoProperties()
-            {
-                // Arrange
-                // Act
-                ITestObjBuilder<ProductWithTwoPublicReadWriteProperties> builder =
-    TestObjectBuilderBuilder<ProductWithTwoPublicReadWriteProperties>.CreateNewObject();
-                // Assert
-                Assert.AreEqual(2, builder.GetType().GetProperties().Count());
-            }
-
-            [Test]
             public void ProductBuilderHasSamePublicReadWriteProperitesAsProduct()
             {
                 // Arrange
@@ -147,6 +124,27 @@ namespace TestObjectBuilderTests.Tests
                     TestObjectBuilderBuilder<ProductWithTwoPublicReadWriteProperties>.CreateNewObject(constructorArguments);
             }
 
+            [Test]
+            public void PropertiesUsedByProductConstructorArePopulatedWhenConstructorArgsAreSuppliedByClient()
+            {
+                
+                // Arrange
+                TestObjectConstructorArgument arg1 = 
+                    new TestObjectConstructorArgument("Arg1", typeof(IDependency1));
+                TestObjectConstructorArgument arg2 =
+                    new TestObjectConstructorArgument("Arg2", typeof(IDependency1));
+                TestObjectConstructorArgumentList constructorArguments =
+                    new TestObjectConstructorArgumentList() { arg1, arg2 };
+
+                // Act
+                ITestObjBuilder<ProductWithoutProperties> builder =
+    TestObjectBuilderBuilder<ProductWithoutProperties>.CreateNewObject(constructorArguments);
+
+                // Assert
+                
+
+            }
+            #region "private helper methods"
             /**
              * <summary>
              * Returns a list list of tuples which describe the name, type
@@ -171,6 +169,7 @@ namespace TestObjectBuilderTests.Tests
 
                 return propertiesList;
             }
+            #endregion
         }
     }
 }

@@ -22,7 +22,8 @@ namespace TestObjectBuilder
         public virtual T Build()
         {
             T product;
-            if (0 == this.PropertiesUsedByProductConstructor.Count())
+            if (null == this.PropertiesUsedByProductConstructor 
+                || 0 == this.PropertiesUsedByProductConstructor.Count())
             {
                 product = (T)Activator.CreateInstance(typeof(T));
             }
@@ -74,7 +75,7 @@ namespace TestObjectBuilder
         #endregion
 
         #region "Public Properties"
-        public List<string> PropertiesUsedByProductConstructor = new List<string>();
+        public List<string> PropertiesUsedByProductConstructor { get; set; }
         #endregion
 
         #region "protected methods"
