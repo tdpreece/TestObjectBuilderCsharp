@@ -51,16 +51,6 @@ namespace TestObjectBuilderTests
         public class Build : TestObjectBuilderMethodTest
         {
             [Test]
-            public void BuildingWithoutSpecifyingDependency1ExternallyUsesDummyDependency1()
-            {
-                // Act
-                Product product = this._productBuilder.Build();
-
-                // Assert
-                Assert.IsInstanceOf(typeof(DummyDependency1), product.FirstDependency);
-            }
-
-            [Test]
             public void BuildWithExternallySpecifiedDependency1ResultsInProductUsingExternallySpecifiedDependency1()
             {
                 // Arrange
@@ -88,6 +78,22 @@ namespace TestObjectBuilderTests
                 // Assert
                 Assert.Contains(arg1, product.constructorArgsUsed);
                 Assert.AreEqual(1, product.constructorArgsUsed.Count());
+            }
+
+            [Test]
+            public void OnlySetPropertiesOnProductThatRelateToPropertiesClientSetOnBuilder()
+            {
+                // Arrange
+                Dependency2 dep2 = new Dependency2();
+                this._productBuilder.With(SecondDependency => dep2);
+
+                // Act
+                Product product = this._productBuilder.Build();
+
+                // Assert
+                Assert.AreEqual(dep2, product.SecondDependency);
+                Assert.AreEqual(1, product.numberOfCallsToSecondDependencySetter);
+                Assert.AreEqual(0, product.numberOfCallsToThirdDependencySetter);
             }
         }
 

@@ -58,6 +58,7 @@ namespace TestObjectBuilder
                 var propertyName = member.Method.GetParameters()[0].Name;
                 var propertyValue = member(string.Empty);
                 GetPropertyInfoForProperty(propertyName).SetValue(this, propertyValue, null);
+                _propertiesChangedByClient.Add(propertyName);
             };
 
             return (ITestObjBuilder<T>)this;
@@ -105,11 +106,10 @@ namespace TestObjectBuilder
 
         protected void InitialiseProductProperties(T product)
         {
-            PropertyInfo[] propertyInfos;
-            propertyInfos = product.GetType().GetProperties();
-            foreach (PropertyInfo propertyInfo in propertyInfos)
+            foreach (string propertyName in this._propertiesChangedByClient)
             {
-                object builderPropertyValue = GetPropertyInfoForProperty(propertyInfo.Name).GetValue(this, null);
+                object builderPropertyValue = GetPropertyInfoForProperty(propertyName).GetValue(this, null);
+                PropertyInfo propertyInfo = product.GetType().GetProperty(propertyName);
                 propertyInfo.SetValue(product, builderPropertyValue, null);
             }
         }
@@ -122,6 +122,10 @@ namespace TestObjectBuilder
             object[] ctorArgs = ctorValues.ToArray();
             return ctorArgs;
         }
+        #endregion
+
+        #region "private members"
+        HashSet<string> _propertiesChangedByClient = new HashSet<string>();
         #endregion
     }
 }

@@ -10,12 +10,11 @@ namespace TestObjectBuilderTests
     {
         public ProductTestObjectBuilder()
         {
-            this.FirstDependency = new DummyDependency1();
-            this.SecondDependency = new DummyDependency2();
             this.PropertiesUsedByProductConstructor = new List<string>() { "FirstDependency" };
         }
 
         public IDependency1 FirstDependency { get; set; }
         public IDependency2 SecondDependency { get; set; }
+        public IDependency1 ThirdDependency { get; set; }
     }
 }

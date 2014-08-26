@@ -13,20 +13,58 @@ namespace TestObjectBuilderTests
 
         public Product(IDependency1 firstDependency) 
         {
-            constructorArgsUsed.Add(firstDependency);
+            this.constructorArgsUsed.Add(firstDependency);
             this._firstDependency = firstDependency;
         }
 
         public IDependency1 FirstDependency
         {
-            get { return this._firstDependency; }
-            private set { this._firstDependency = value; }
+            get 
+            { 
+                return this._firstDependency; 
+            }
+            private set 
+            {
+                this.numberOfCallsToFirstDependencySetter += 1;
+                this._firstDependency = value; 
+            }
         }
 
-        public IDependency2 SecondDependency { get; set; }
+        public IDependency2 SecondDependency 
+        {
+            get 
+            { 
+                return this._secondDependency; 
+            }
+            set
+            {
+                this.numberOfCallsToSecondDependencySetter += 1;
+                this._secondDependency = value;
+            }
+        }
+
+        public IDependency1 ThirdDependency
+        {
+            get
+            {
+                return this._thirdDependency;
+            }
+            set
+            {
+                this.numberOfCallsToThirdDependencySetter += 1;
+                this._thirdDependency = value;
+            }
+        }
 
         private IDependency1 _firstDependency;
+        private IDependency2 _secondDependency;
+        private IDependency1 _thirdDependency;
 
+        #region "public "
         public List<object> constructorArgsUsed = new List<object>();
+        public int numberOfCallsToFirstDependencySetter = 0;
+        public int numberOfCallsToSecondDependencySetter = 0;
+        public int numberOfCallsToThirdDependencySetter = 0;
+        #endregion
     }
 }
