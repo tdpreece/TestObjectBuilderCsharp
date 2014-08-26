@@ -104,9 +104,19 @@ namespace TestObjectBuilder
             }
         }
 
+        /// <summary>
+        /// Set properties on product to value of property with matching name on the 
+        /// TestObjectBuilder for properties that i) are not arguments to the products
+        /// constructor and ii) whose values have been set by the client.
+        /// </summary>
+        /// <param name="product">product in which to set properties.</param>
         protected void InitialiseProductProperties(T product)
         {
-            foreach (string propertyName in this._propertiesChangedByClient)
+            HashSet<string> properteiesToSetOnProduct = new HashSet<string>();
+            properteiesToSetOnProduct.UnionWith(this._propertiesChangedByClient);
+            properteiesToSetOnProduct.ExceptWith(this.PropertiesUsedByProductConstructor);
+
+            foreach (string propertyName in properteiesToSetOnProduct)
             {
                 object builderPropertyValue = GetPropertyInfoForProperty(propertyName).GetValue(this, null);
                 PropertyInfo propertyInfo = product.GetType().GetProperty(propertyName);

@@ -95,6 +95,21 @@ namespace TestObjectBuilderTests
                 Assert.AreEqual(1, product.numberOfCallsToSecondDependencySetter);
                 Assert.AreEqual(0, product.numberOfCallsToThirdDependencySetter);
             }
+
+            [Test]
+            public void DoNotSetPropertiesOnProductThatAreConstructorArguments()
+            {
+                // Arrange
+                IDependency1 arg1 = new Dependency1();
+                this._productBuilder.PropertiesUsedByProductConstructor = new List<string>() { "FirstDependency" };
+                this._productBuilder.With(FirstDependency => arg1);
+
+                // Act
+                Product product = this._productBuilder.Build();
+
+                // Assert
+                Assert.AreEqual(0, product.numberOfCallsToFirstDependencySetter);
+            }
         }
 
         [TestFixture]
