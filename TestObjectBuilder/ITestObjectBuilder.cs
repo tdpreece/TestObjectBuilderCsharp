@@ -11,5 +11,7 @@ namespace TestObjectBuilder
         ITestObjBuilder<T> But();
         ITestObjBuilder<T> With(params Func<string, object>[] hash);
         object GetProperty(string propertyName);
+
+        List<string> PropertiesUsedByProductConstructor { get; set; }
     }
 }

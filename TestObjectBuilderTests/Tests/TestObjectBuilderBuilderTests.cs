@@ -141,8 +141,10 @@ namespace TestObjectBuilderTests.Tests
     TestObjectBuilderBuilder<ProductWithoutProperties>.CreateNewObject(constructorArguments);
 
                 // Assert
-                
-
+                Assert.IsNotNull(builder.PropertiesUsedByProductConstructor);
+                Assert.AreEqual(2, builder.PropertiesUsedByProductConstructor.Count());
+                Assert.Contains(arg1.ArgumentName, builder.PropertiesUsedByProductConstructor);
+                Assert.Contains(arg2.ArgumentName, builder.PropertiesUsedByProductConstructor);
             }
             #region "private helper methods"
             /**

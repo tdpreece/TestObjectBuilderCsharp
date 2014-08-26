@@ -26,8 +26,9 @@ namespace TestObjectBuilder
         {
             Type finalProductType = typeof(T);
             var myType = CompileResultType(ctorArgs);
-            var myObject = Activator.CreateInstance(myType);
-            return (ITestObjBuilder<T>)myObject;
+            ITestObjBuilder<T> testObjectBuilder = (ITestObjBuilder<T>)Activator.CreateInstance(myType);
+            testObjectBuilder.PropertiesUsedByProductConstructor = GetNamesProductConstructorArguements(ctorArgs);
+            return testObjectBuilder;
         }
 
         public static Type CompileResultType(TestObjectConstructorArgumentList ctorArgs)
@@ -151,6 +152,25 @@ namespace TestObjectBuilder
 
             return propertiesToAdd;
 
+        }
+
+        /// <summary>
+        /// Returns a list of Names for the TestObjectConstructorArgumentList supplied.
+        /// </summary>
+        /// <param name="ctorArgs">TestObjectConstructorArgumentList</param>
+        /// <returns>List of property name strings.</returns>
+        private static List<string> GetNamesProductConstructorArguements(TestObjectConstructorArgumentList ctorArgs)
+        {
+            List<string> propertyNames = new List<string>();
+            if (null != ctorArgs)
+            {
+                foreach (TestObjectConstructorArgument arg in ctorArgs)
+                {
+                    propertyNames.Add(arg.ArgumentName);
+                }
+            }
+
+            return propertyNames;
         }
     }
 }
