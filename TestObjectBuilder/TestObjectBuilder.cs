@@ -13,7 +13,6 @@ namespace TestObjectBuilder
         #region "Constructors"
         public TestObjBuilder()
         {
-            this.InitialiseBuilderProperties();
         }
         #endregion
 
@@ -92,16 +91,6 @@ namespace TestObjectBuilder
                 throw new ArgumentException(propertyNotImplementedErrorMsg);
             }
             return propertyInfo;
-        }
-
-        protected void InitialiseBuilderProperties()
-        {
-            PropertyInfo[] propertyInfos;
-            propertyInfos = this.GetType().GetProperties();
-            foreach (PropertyInfo propertyInfo in propertyInfos)
-            {
-                propertyInfo.SetValue(this, null, null);
-            }
         }
 
         /// <summary>
