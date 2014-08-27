@@ -1,7 +1,7 @@
 TestObjectBuildersCsharp
 ========================
 TestObjectBuildersCsharp allows you to quickly create builder 
-classes that put together classes under test.
+classes that put together classes under test and/or their collaborators.
 
 # Background
 I liked Nat Pryce's Test Data Builders (http://www.natpryce.com/articles/000714.html) 
