@@ -125,6 +125,24 @@ namespace TestObjectBuilderTests.Tests
             }
 
             [Test]
+            [ExpectedException(typeof(ArgumentException))]
+            public void BuilderBuilderThrowsExceptionWhenTwoConstructorArgsSharesANameButNotType()
+            {
+                // Arrange
+                TestObjectConstructorArgument arg1 =
+                    new TestObjectConstructorArgument("Arg1", typeof(Dependency1));
+                TestObjectConstructorArgument arg2 =
+                    new TestObjectConstructorArgument("Arg1", typeof(Dependency2));
+                TestObjectConstructorArgumentList constructorArguments =
+                    new TestObjectConstructorArgumentList() { arg1, arg2 };
+
+                // Act
+                ITestObjBuilder<ProductWithTwoConstructorArgumentsOfDifferentType> builder =
+                    TestObjectBuilderBuilder<ProductWithTwoConstructorArgumentsOfDifferentType>.
+                    CreateNewObject(constructorArguments);
+            }
+
+            [Test]
             public void PropertiesUsedByProductConstructorArePopulatedWhenConstructorArgsAreSuppliedByClient()
             {
                 

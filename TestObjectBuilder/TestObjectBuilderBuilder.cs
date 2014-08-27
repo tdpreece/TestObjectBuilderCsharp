@@ -24,6 +24,11 @@ namespace TestObjectBuilder
 
         public static ITestObjBuilder<T> CreateNewObject(TestObjectConstructorArgumentList ctorArgs)
         {
+            if (null == ctorArgs)
+            {
+                ctorArgs = new TestObjectConstructorArgumentList();
+            }
+            ValidateConstructorArguments(ctorArgs);
             var myType = CompileResultType(ctorArgs);
             ITestObjBuilder<T> testObjectBuilder = (ITestObjBuilder<T>)Activator.CreateInstance(myType);
             testObjectBuilder.PropertiesUsedByProductConstructor = GetNamesProductConstructorArguements(ctorArgs);
@@ -170,6 +175,29 @@ namespace TestObjectBuilder
             }
 
             return propertyNames;
+        }
+
+             
+        /// <summary>
+        /// Validates that we don't have multiple constructor arguments with the
+        /// same name but different type.
+        /// </summary>
+        private static void ValidateConstructorArguments(TestObjectConstructorArgumentList ctorArgs)
+        {
+            foreach (TestObjectConstructorArgument arg1 in ctorArgs)
+            {
+                foreach (TestObjectConstructorArgument arg2 in ctorArgs)
+                {
+                    if (arg1.ArgumentName == arg2.ArgumentName
+                        && arg1.ArgumentType != arg2.ArgumentType)
+                    {
+                        throw new ArgumentException(String.Format(
+                            "Two constructor argument have same name, '{0}', but " +
+                            "different types, {1} and {2}.  Change the name of one.",
+                             arg1.ArgumentName, arg1.ArgumentType, arg2.ArgumentType));
+                    }
+                }
+            }
         }
     }
 }
