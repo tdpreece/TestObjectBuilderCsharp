@@ -81,6 +81,19 @@ namespace TestObjectBuilderTests
             }
 
             [Test]
+            [ExpectedException(typeof(MissingMethodException))]
+            public void ThrowExceptionWhenUserSpecifiesConstructorArgumentsThatDoNotMatchAConstructorForTestObject()
+            {
+                IDependency1 arg1 = new Dependency1();
+                this._productBuilder.PropertiesUsedByProductConstructor = new List<string>() { 
+                    "FirstDependency", "FirstDependency", "FirstDependency" };
+                this._productBuilder.With(FirstDependency => arg1);
+
+                // Act
+                Product product = this._productBuilder.Build();
+            }
+
+            [Test]
             public void OnlySetPropertiesOnProductThatRelateToPropertiesClientSetOnBuilder()
             {
                 // Arrange

@@ -24,15 +24,24 @@ namespace TestObjectBuilder
         {
             ValidateConstructorArgumentsHaveBeenSet();
             T product;
-            if (null == this.PropertiesUsedByProductConstructor 
-                || 0 == this.PropertiesUsedByProductConstructor.Count())
+            try
             {
-                product = (T)Activator.CreateInstance(typeof(T));
+                if (null == this.PropertiesUsedByProductConstructor ||
+                    0 == this.PropertiesUsedByProductConstructor.Count())
+                {
+                    product = (T)Activator.CreateInstance(typeof(T));
+                }
+                else
+                {
+                    product = (T)Activator.CreateInstance(typeof(T), this.GetConstructorArguments());
+                }
             }
-            else
+            catch (MissingMethodException)
             {
-                product = (T)Activator.CreateInstance(typeof(T), this.GetConstructorArguments());
+                throw new MissingMethodException(this.GetConstructorErrorString());
             }
+
+
             InitialiseProductProperties(product);
             return product;
         }
@@ -140,6 +149,21 @@ namespace TestObjectBuilder
                 ctorValues.Add(this.GetProperty(argName));
             object[] ctorArgs = ctorValues.ToArray();
             return ctorArgs;
+        }
+
+        private string GetConstructorErrorString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("No matching constructor found for, ");
+            sb.Append(typeof(T).ToString());
+            sb.Append("(");
+            foreach (object arg in this.GetConstructorArguments())
+            {
+                sb.Append(arg.GetType().ToString());
+            }
+            sb.Append(").");
+            
+            return sb.ToString();
         }
         #endregion
 
