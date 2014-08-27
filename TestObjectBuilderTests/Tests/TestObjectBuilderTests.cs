@@ -55,7 +55,7 @@ namespace TestObjectBuilderTests
             {
                 // Arrange
                 DummyDependency1 externallySuppliedDependency1 = new DummyDependency1();
-                this._productBuilder.FirstDependency = externallySuppliedDependency1;
+                this._productBuilder.With(FirstDependency => externallySuppliedDependency1);
 
                 // Act
                 Product product = this._productBuilder.Build();
@@ -70,7 +70,7 @@ namespace TestObjectBuilderTests
                 // Arrange
                 IDependency1 arg1 = new Dependency1();
                 this._productBuilder.PropertiesUsedByProductConstructor = new List<string>() { "FirstDependency" };
-                this._productBuilder.FirstDependency = arg1;
+                this._productBuilder.With(FirstDependency => arg1);
 
                 // Act
                 Product product = this._productBuilder.Build();
@@ -109,6 +109,17 @@ namespace TestObjectBuilderTests
 
                 // Assert
                 Assert.AreEqual(0, product.numberOfCallsToFirstDependencySetter);
+            }
+
+            [Test]
+            [ExpectedException(typeof(ArgumentException))]
+            public void ThrowExceptionIfUserHasNotSetAllConstructorArguments()
+            {
+                // Arrange
+                this._productBuilder.PropertiesUsedByProductConstructor = new List<string>() { "FirstDependency" };
+                
+                // Act
+                this._productBuilder.Build();
             }
         }
 

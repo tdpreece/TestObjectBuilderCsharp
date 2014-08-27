@@ -13,6 +13,7 @@ namespace TestObjectBuilder
         #region "Constructors"
         public TestObjBuilder()
         {
+            this.PropertiesUsedByProductConstructor = new List<string>();
         }
         #endregion
 
@@ -20,6 +21,7 @@ namespace TestObjectBuilder
         #region "Public Methods"
         public virtual T Build()
         {
+            ValidateConstructorArgumentsHaveBeenSet();
             T product;
             if (null == this.PropertiesUsedByProductConstructor 
                 || 0 == this.PropertiesUsedByProductConstructor.Count())
@@ -110,6 +112,23 @@ namespace TestObjectBuilder
                 object builderPropertyValue = GetPropertyInfoForProperty(propertyName).GetValue(this, null);
                 PropertyInfo propertyInfo = product.GetType().GetProperty(propertyName);
                 propertyInfo.SetValue(product, builderPropertyValue, null);
+            }
+        }
+
+        /// <summary>
+        /// Validate that user has set property values for all properties that
+        /// are used to construct the test object.
+        /// </summary>
+        protected void ValidateConstructorArgumentsHaveBeenSet()
+        {
+            foreach (string propertyName in this.PropertiesUsedByProductConstructor)
+            {
+                if (false == _propertiesChangedByClient.Contains(propertyName))
+                {
+                    throw new ArgumentException(string.Format("Constructor argument {0} " +
+                        "has not been set and is required to construct the test object, {1}",
+                        propertyName, typeof(T).ToString()));
+                }
             }
         }
 

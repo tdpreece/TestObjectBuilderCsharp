@@ -10,7 +10,6 @@ namespace TestObjectBuilderTests
     {
         public ProductTestObjectBuilder()
         {
-            this.PropertiesUsedByProductConstructor = new List<string>() { "FirstDependency" };
         }
 
         public IDependency1 FirstDependency { get; set; }
