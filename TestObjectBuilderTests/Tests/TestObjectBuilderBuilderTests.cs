@@ -146,6 +146,29 @@ namespace TestObjectBuilderTests.Tests
                 Assert.Contains(arg1.ArgumentName, builder.PropertiesUsedByProductConstructor);
                 Assert.Contains(arg2.ArgumentName, builder.PropertiesUsedByProductConstructor);
             }
+
+            [Test]
+            public void OnlyOnePropertyAddedToBuilderForTwoConstructorArgsWithSameName()
+            {
+                // This isn't something I'd expect someone to want to do but I don't want this to 
+                // break if they do.
+                
+                // Arrange
+                TestObjectConstructorArgument arg1 = new TestObjectConstructorArgument("Arg1", typeof(Dependency1));
+                TestObjectConstructorArgument arg2 = new TestObjectConstructorArgument("Arg1", typeof(Dependency1));
+                TestObjectConstructorArgumentList constructorArguments = new TestObjectConstructorArgumentList() {
+                    arg1, arg2 };
+
+                // Act
+                ITestObjBuilder<ProductWithTwoIdenticalConstructorArguments> builder =
+                    TestObjectBuilderBuilder<ProductWithTwoIdenticalConstructorArguments>.CreateNewObject(
+                    constructorArguments);
+
+                // Assert
+                Assert.IsNotNull(builder.GetType().GetProperty("Arg1"));
+                // Can't have two properties with the same name so would get an error if tries to add two.
+            }
+
             #region "private helper methods"
             /**
              * <summary>
