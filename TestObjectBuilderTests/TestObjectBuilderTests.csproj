@@ -60,6 +60,7 @@
     <Compile Include="TestClassesAndDependencies\ProductWithTwoIdenticalConstructorArguments.cs" />
     <Compile Include="TestClassesAndDependencies\ProductWithTwoPublicReadWriteProperties.cs" />
     <Compile Include="TestClassesAndDependencies\ProductWithZeroArgumentConstructor.cs" />
+    <Compile Include="Tests\IntegrationTests.cs" />
     <Compile Include="Tests\TestObjectBuilderBuilderTests.cs" />
     <Compile Include="Tests\TestObjectBuilderTests.cs" />
   </ItemGroup>
