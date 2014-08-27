@@ -165,13 +165,12 @@ namespace TestObjectBuilder
         private static List<string> GetNamesProductConstructorArguements(TestObjectConstructorArgumentList ctorArgs)
         {
             List<string> propertyNames = new List<string>();
-            if (null != ctorArgs)
+
+            foreach (TestObjectConstructorArgument arg in ctorArgs)
             {
-                foreach (TestObjectConstructorArgument arg in ctorArgs)
-                {
-                    propertyNames.Add(arg.ArgumentName);
-                }
+                propertyNames.Add(arg.ArgumentName);
             }
+
 
             return propertyNames;
         }
