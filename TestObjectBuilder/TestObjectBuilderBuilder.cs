@@ -129,30 +129,29 @@ namespace TestObjectBuilder
                 }
             }
 
-            if (constructorArguments != null)
+
+            foreach (TestObjectConstructorArgument ctorArg in constructorArguments)
             {
-                foreach (TestObjectConstructorArgument ctorArg in constructorArguments)
+                if (propertiesToAdd.ContainsKey(ctorArg.ArgumentName))
                 {
-                    if ( propertiesToAdd.ContainsKey(ctorArg.ArgumentName) )
+                    if (propertiesToAdd[ctorArg.ArgumentName] == ctorArg.ArgumentType)
                     {
-                        if (propertiesToAdd[ctorArg.ArgumentName] == ctorArg.ArgumentType)
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            throw new ArgumentException(String.Format("Constructor argument '{0}' of type {1} " +
-                                "has same name but different type to a property of {2}.  The name of the " +
-                                "constructor argument should be changed.", ctorArg.ArgumentName,
-                                ctorArg.ArgumentType, typeof(T)));
-                        }
+                        continue;
                     }
                     else
                     {
-                        propertiesToAdd.Add(ctorArg.ArgumentName, ctorArg.ArgumentType);
+                        throw new ArgumentException(String.Format("Constructor argument '{0}' of type {1} " +
+                            "has same name but different type to a property of {2}.  The name of the " +
+                            "constructor argument should be changed.", ctorArg.ArgumentName,
+                            ctorArg.ArgumentType, typeof(T)));
                     }
                 }
+                else
+                {
+                    propertiesToAdd.Add(ctorArg.ArgumentName, ctorArg.ArgumentType);
+                }
             }
+
 
             return propertiesToAdd;
 
