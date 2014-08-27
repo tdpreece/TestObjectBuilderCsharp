@@ -14,6 +14,7 @@ namespace TestObjectBuilder
         public TestObjBuilder()
         {
             this.PropertiesUsedByProductConstructor = new List<string>();
+            this._propertiesChangedByClient = new HashSet<string>();
         }
         #endregion
 
@@ -143,7 +144,7 @@ namespace TestObjectBuilder
         #endregion
 
         #region "private members"
-        HashSet<string> _propertiesChangedByClient = new HashSet<string>();
+        HashSet<string> _propertiesChangedByClient;
         #endregion
     }
 }
