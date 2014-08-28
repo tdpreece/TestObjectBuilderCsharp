@@ -98,14 +98,6 @@ has the same structure as ProductBuilderUsingBaseClass.
             };
             var builder = TestObjectBuilderBuilder<Product>.Build(
                 constructorArguments);
-
-            var aList = new List<int>() { 2, 3 };
-            builder.With(X => 1, Y => aList);
-            
-            var aClassInstance = builder.Build();
-            
-            Assert.AreEqual(aList, aClassInstance.Y);
-            Assert.AreEqual(1, aClassInstance.X);
 ```
 1 The TestObjectBuilderBuilder first adds properties to the builder for every 
 property on Product that has a setter defined.
