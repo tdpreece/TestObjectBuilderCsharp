@@ -59,7 +59,7 @@ A builder to create test data for this class would probably look something like,
         public List<int> Y { get; set; }
     }
 ```
-This project contains a TestObjectBuilder class which you can subclass to 
+This project contains a TestObjectBuilder class which you can inherit to 
 reduce the amount of code you have to manually enter for each builder.
 For example,
 ```
