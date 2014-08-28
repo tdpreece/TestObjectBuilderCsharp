@@ -80,11 +80,10 @@ namespace TestObjectBuilder
         /// <returns>A TypeBuilder for a subclass of TestObjectBuilder.</returns>
         private static TypeBuilder GetTypeBuilder()
         {
-            var typeSignature = "MyDynamicType";
-            var an = new AssemblyName(typeSignature);
+            var an = new AssemblyName("TestObjectBuilderTmpAssembly");
             AssemblyBuilder assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(an, AssemblyBuilderAccess.Run);
             ModuleBuilder moduleBuilder = assemblyBuilder.DefineDynamicModule("MainModule");
-            TypeBuilder tb = moduleBuilder.DefineType(typeSignature
+            TypeBuilder tb = moduleBuilder.DefineType("ADynamicTestObjectBuilder"
                                 , TypeAttributes.Public |
                                 TypeAttributes.Class |
                                 TypeAttributes.AutoClass |
