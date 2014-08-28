@@ -16,9 +16,9 @@ namespace TestObjectBuilderTests
      * done - with()
      * done - but()
      * done - build()
-     * done - add GetProperty(dependency name) string.  With returns ITestObjectBuilder<T>, which
+     * done - add GetPropertyValue(dependency name) string.  With returns ITestObjectBuilder<T>, which
      *   has no visibility of the dependencies for a concrete class.  Thus you'd have to do,
-     *   builder.GetType().GetProperty("FirstDependency").GetValue(builder, null)
+     *   builder.GetType().GetPropertyValue("FirstDependency").GetValue(builder, null)
      * 
      * *** 
      * - Add functionality to automatically generate a TestObjectBuilder from a class using reflection.
@@ -229,7 +229,7 @@ namespace TestObjectBuilderTests
             public void ReturnsDependencyWhenCalled()
             {
                 // Act
-                object propertyValue = this._productBuilder.GetProperty("FirstDependency");
+                object propertyValue = this._productBuilder.GetPropertyValue("FirstDependency");
 
                 // Assert
                 Assert.AreEqual(this._productBuilder.FirstDependency, propertyValue);
@@ -240,7 +240,7 @@ namespace TestObjectBuilderTests
             public void ThrowsExceptionWhenDependencyNameIsIncorrect()
             {
                 // Act
-                object propertyValue = this._productBuilder.GetProperty("PropertyNameThatDoesNotExist");
+                object propertyValue = this._productBuilder.GetPropertyValue("PropertyNameThatDoesNotExist");
             }
         }
     }

@@ -10,7 +10,7 @@ namespace TestObjectBuilder
         T Build();
         ITestObjectBuilder<T> But();
         ITestObjectBuilder<T> With(params Func<string, object>[] hash);
-        object GetProperty(string propertyName);
+        object GetPropertyValue(string propertyName);
 
         List<string> PropertiesUsedByProductConstructor { get; set; }
     }

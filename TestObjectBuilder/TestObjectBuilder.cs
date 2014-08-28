@@ -75,12 +75,12 @@ namespace TestObjectBuilder
             return (ITestObjectBuilder<T>)this;
         }
 
-        // <summary>
-        // Gets value of property requested.
-        // <remards>
-        // Added so that a user can easity get property values of property through ITestObjectBuilder.
-        // Thus, user doesn't have to cast to a concrete class of the TestObjectBuilder.
-        public object GetProperty(string propertyName)
+        /// <summary>
+        /// Gets value of property requested.
+        /// </summary>
+        /// <param name="propertyName">property name as string</param>
+        /// <returns></returns>
+        public object GetPropertyValue(string propertyName)
         {
             return this.GetPropertyInfoForProperty(propertyName).GetValue(this, null);
         }
@@ -146,7 +146,7 @@ namespace TestObjectBuilder
         {
             List<object> ctorValues = new List<object>();
             foreach (string argName in this.PropertiesUsedByProductConstructor)
-                ctorValues.Add(this.GetProperty(argName));
+                ctorValues.Add(this.GetPropertyValue(argName));
             object[] ctorArgs = ctorValues.ToArray();
             return ctorArgs;
         }
