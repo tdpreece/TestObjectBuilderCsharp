@@ -91,7 +91,7 @@ instantiated.  ProductBuilderUsingBaseClass can be used like,
 If this is still too much work you can make use of the 
 TestObjectBuilderBuilder, which creates TestObjectBuilders for you
 at run time.  The following code creates a TestObjectBuilder that 
-looks the same as ProductBuilderUsingBaseClass.
+has the same structure as ProductBuilderUsingBaseClass.
 ```
             var constructorArguments = new TestObjectConstructorArgumentList() {
                 new TestObjectConstructorArgument("X", typeof(int))
