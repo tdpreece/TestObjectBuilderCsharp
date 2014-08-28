@@ -10,7 +10,7 @@ collaborators.
 
 # Background
 I liked Nat Pryce's Test Data Builders (http://www.natpryce.com/articles/000714.html) 
-for instantiating classes under test in unit tests, however, I didn't like writing 
+for instantiating classes in unit tests, however, I didn't like writing 
 a builder for each class.
 
 Consider the following class,
