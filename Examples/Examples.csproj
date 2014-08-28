@@ -44,7 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProductBuilder.cs" />
+    <Compile Include="ProductBuilderFromScratch.cs" />
+    <Compile Include="ProductBuilderUsingBaseClass.cs" />
     <Compile Include="ExampleTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Product.cs" />

@@ -15,7 +15,7 @@ namespace Examples
         [Test, Description("Build a Product using a Test Object Builder that was coded by hand.")]
         public void Example1()
         {
-            var builder = new ProductBuilder();
+            var builder = new ProductBuilderUsingBaseClass();
             var aList = new List<int>() { 2, 3 };
             builder.With(X => 1, Y => aList);
 

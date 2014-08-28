@@ -7,9 +7,9 @@ using TestObjectBuilder;
 
 namespace Examples
 {
-    public class ProductBuilder : TestObjectBuilder<Product>
+    public class ProductBuilderUsingBaseClass : TestObjectBuilder<Product>
     {
-        public ProductBuilder()
+        public ProductBuilderUsingBaseClass()
         {
             this.PropertiesUsedByProductConstructor = new List<string>() { "X" };
         }
