@@ -87,6 +87,11 @@ instantiated.  ProductBuilderUsingBaseClass can be used like,
             Assert.AreEqual(aList, aClassInstance.Y);
             Assert.AreEqual(1, aClassInstance.X);
 ```
+1. When builder.Build() is called a Product is instantiated with the value of 
+property X pased to the constructor.
+2. Property Y on the instance is then set to the value of Y on the builder.  NOTE
+that this only happened because Y had been set on the builder using the With method.
+If this had not been done, Y would not have been set on the instance.
 
 If this is still too much work you can make use of the 
 TestObjectBuilderBuilder, which creates TestObjectBuilders for you
