@@ -49,6 +49,14 @@ namespace TestObjectBuilder
         #endregion
 
         #region "Private Functions"
+        /// <summary>
+        /// Dynamically creates a TestObjectBuilder for type T.
+        /// </summary>
+        /// <param name="ctorArgs">
+        /// Types and names of arguments that builder will pass to type T's
+        /// constructor when it instantiates it.
+        /// </param>
+        /// <returns>A TestObjectBuilder class for type T</returns>
         private static Type CompileResultType(TestObjectConstructorArgumentList ctorArgs)
         {
             TypeBuilder tb = GetTypeBuilder();
@@ -65,6 +73,11 @@ namespace TestObjectBuilder
             return objectType;
         }
 
+        /// <summary>
+        /// Dynamically creates a subclass of TestObjectBuilder for building
+        /// instances of type T.
+        /// </summary>
+        /// <returns>A TypeBuilder for a subclass of TestObjectBuilder.</returns>
         private static TypeBuilder GetTypeBuilder()
         {
             var typeSignature = "MyDynamicType";
