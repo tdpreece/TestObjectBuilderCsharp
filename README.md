@@ -99,11 +99,11 @@ has the same structure as ProductBuilderUsingBaseClass.
             var builder = TestObjectBuilderBuilder<Product>.Build(
                 constructorArguments);
 ```
-1 The TestObjectBuilderBuilder first adds properties to the builder for every 
+1. The TestObjectBuilderBuilder first adds properties to the builder for every 
 property on Product that has a setter defined.
-2 It then adds additional properties for any constructor arguments specified
+2. It then adds additional properties for any constructor arguments specified
 that don't share a name with any of Properties added in the previous step.
-3 It then sets PropertiesUsedByProductConstructor property using the list of
+3. It then sets PropertiesUsedByProductConstructor property using the list of
 constructor arguments specified.
 
 
