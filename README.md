@@ -9,8 +9,8 @@ collaborators.
 * Reference TestObjectBuilder project from the project that contains your unit tests.
 
 # Background
-I liked Nat Pryce's Test Data Builders (http://www.natpryce.com/articles/000714.html) 
-for instantiating classes in unit tests, however, I didn't like writing 
+I like Nat Pryce's Test Data Builders (http://www.natpryce.com/articles/000714.html) 
+for instantiating classes in unit tests, however, I don't like writing 
 a builder for each class.
 
 Consider the following class,
