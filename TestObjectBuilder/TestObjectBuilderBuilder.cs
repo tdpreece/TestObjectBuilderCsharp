@@ -16,6 +16,7 @@ namespace TestObjectBuilder
      */
     public class TestObjectBuilderBuilder<T>
     {
+        #region "Public Functions"
         /// <summary>
         /// Builds a TestObjectBuilder for type T.
         /// </summary>
@@ -45,7 +46,10 @@ namespace TestObjectBuilder
             return testObjectBuilder;
         }
 
-        public static Type CompileResultType(TestObjectConstructorArgumentList ctorArgs)
+        #endregion
+
+        #region "Private Functions"
+        private static Type CompileResultType(TestObjectConstructorArgumentList ctorArgs)
         {
             TypeBuilder tb = GetTypeBuilder();
             ConstructorBuilder constructor = tb.DefineDefaultConstructor(
@@ -207,5 +211,6 @@ namespace TestObjectBuilder
                 }
             }
         }
+        #endregion
     }
 }
