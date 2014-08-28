@@ -79,7 +79,7 @@ namespace TestObjectBuilder
         /// Gets value of property requested.
         /// </summary>
         /// <param name="propertyName">property name as string</param>
-        /// <returns></returns>
+        /// <returns>property value</returns>
         public object GetPropertyValue(string propertyName)
         {
             return this.GetPropertyInfoForProperty(propertyName).GetValue(this, null);
