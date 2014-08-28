@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestObjectBuilder", "TestOb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestObjectBuilderTests", "TestObjectBuilderTests\TestObjectBuilderTests.csproj", "{F626BB1D-5FDA-4468-AE19-AFACB4CB1080}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples", "Examples\Examples.csproj", "{C6AB14F3-FF18-411A-9AC1-3DCB46361DDC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,16 @@ Global
 		{F626BB1D-5FDA-4468-AE19-AFACB4CB1080}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{F626BB1D-5FDA-4468-AE19-AFACB4CB1080}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{F626BB1D-5FDA-4468-AE19-AFACB4CB1080}.Release|x86.ActiveCfg = Release|Any CPU
+		{C6AB14F3-FF18-411A-9AC1-3DCB46361DDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6AB14F3-FF18-411A-9AC1-3DCB46361DDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6AB14F3-FF18-411A-9AC1-3DCB46361DDC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C6AB14F3-FF18-411A-9AC1-3DCB46361DDC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C6AB14F3-FF18-411A-9AC1-3DCB46361DDC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C6AB14F3-FF18-411A-9AC1-3DCB46361DDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6AB14F3-FF18-411A-9AC1-3DCB46361DDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6AB14F3-FF18-411A-9AC1-3DCB46361DDC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C6AB14F3-FF18-411A-9AC1-3DCB46361DDC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C6AB14F3-FF18-411A-9AC1-3DCB46361DDC}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
