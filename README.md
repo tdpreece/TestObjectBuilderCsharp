@@ -88,7 +88,7 @@ instantiated.  ProductBuilderUsingBaseClass can be used like,
             Assert.AreEqual(1, aClassInstance.X);
 ```
 
-If this is still too much work this Project you can make use of the 
+If this is still too much work you can make use of the 
 TestObjectBuilderBuilder, which creates TestObjectBuilders for you
 at run time.  The following code creates a TestObjectBuilder that 
 looks the same as ProductBuilderUsingBaseClass.
