@@ -22,7 +22,7 @@ namespace TestObjectBuilderTests.Tests
                 // Arrange
                 // Act
                 ITestObjectBuilder<ProductWithoutProperties> builder =
-    TestObjectBuilderBuilder<ProductWithoutProperties>.CreateNewObject();
+    TestObjectBuilderBuilder<ProductWithoutProperties>.Build();
                 // Assert
                 Assert.AreSame(typeof(ProductWithoutProperties), builder.GetType().GetMethod("Build").ReturnType);
             }
@@ -33,7 +33,7 @@ namespace TestObjectBuilderTests.Tests
                 // Arrange
                 // Act
                 ITestObjectBuilder<ProductWithTwoPublicReadWriteProperties> builder =
-    TestObjectBuilderBuilder<ProductWithTwoPublicReadWriteProperties>.CreateNewObject();
+    TestObjectBuilderBuilder<ProductWithTwoPublicReadWriteProperties>.Build();
 
                 // Assert
                 List<Tuple<string, Type, bool>> builderProperties = GetListOfPropertyNameTypeAccessibility(builder.GetType());
@@ -58,7 +58,7 @@ namespace TestObjectBuilderTests.Tests
 
                 // Act
                 ITestObjectBuilder<ProductWithPropertyWithPrivateSetter> builder =
-                    TestObjectBuilderBuilder<ProductWithPropertyWithPrivateSetter>.CreateNewObject();
+                    TestObjectBuilderBuilder<ProductWithPropertyWithPrivateSetter>.Build();
 
                 // Assert
                 // Tuple<property name, type, has public setter>
@@ -81,7 +81,7 @@ namespace TestObjectBuilderTests.Tests
 
                 // Act
                 ITestObjectBuilder<ProductWithPropertyWithoutSetter> builder =
-    TestObjectBuilderBuilder<ProductWithPropertyWithoutSetter>.CreateNewObject();
+    TestObjectBuilderBuilder<ProductWithPropertyWithoutSetter>.Build();
 
                 // Assert
                 List<Tuple<string, Type, bool>> builderProperties = GetListOfPropertyNameTypeAccessibility(builder.GetType());
@@ -101,7 +101,7 @@ namespace TestObjectBuilderTests.Tests
 
                 // Act
                 ITestObjectBuilder<ProductWithoutProperties> builder =
-    TestObjectBuilderBuilder<ProductWithoutProperties>.CreateNewObject(constructorArguments);
+    TestObjectBuilderBuilder<ProductWithoutProperties>.Build(constructorArguments);
                 
                 // Assert
                 List<Tuple<string, Type, bool>> builderProperties = GetListOfPropertyNameTypeAccessibility(builder.GetType());
@@ -121,7 +121,7 @@ namespace TestObjectBuilderTests.Tests
 
                 // Act
                 ITestObjectBuilder<ProductWithTwoPublicReadWriteProperties> builder =
-                    TestObjectBuilderBuilder<ProductWithTwoPublicReadWriteProperties>.CreateNewObject(constructorArguments);
+                    TestObjectBuilderBuilder<ProductWithTwoPublicReadWriteProperties>.Build(constructorArguments);
             }
 
             [Test]
@@ -139,7 +139,7 @@ namespace TestObjectBuilderTests.Tests
                 // Act
                 ITestObjectBuilder<ProductWithTwoConstructorArgumentsOfDifferentType> builder =
                     TestObjectBuilderBuilder<ProductWithTwoConstructorArgumentsOfDifferentType>.
-                    CreateNewObject(constructorArguments);
+                    Build(constructorArguments);
             }
 
             [Test]
@@ -156,7 +156,7 @@ namespace TestObjectBuilderTests.Tests
 
                 // Act
                 ITestObjectBuilder<ProductWithoutProperties> builder =
-    TestObjectBuilderBuilder<ProductWithoutProperties>.CreateNewObject(constructorArguments);
+    TestObjectBuilderBuilder<ProductWithoutProperties>.Build(constructorArguments);
 
                 // Assert
                 Assert.IsNotNull(builder.PropertiesUsedByProductConstructor);
@@ -179,7 +179,7 @@ namespace TestObjectBuilderTests.Tests
 
                 // Act
                 ITestObjectBuilder<ProductWithTwoIdenticalConstructorArguments> builder =
-                    TestObjectBuilderBuilder<ProductWithTwoIdenticalConstructorArguments>.CreateNewObject(
+                    TestObjectBuilderBuilder<ProductWithTwoIdenticalConstructorArguments>.Build(
                     constructorArguments);
 
                 // Assert

@@ -33,7 +33,7 @@ namespace Examples
             var constructorArguments = new TestObjectConstructorArgumentList() {
                 new TestObjectConstructorArgument("X", typeof(int))
             };
-            var builder = TestObjectBuilderBuilder<Product>.CreateNewObject(
+            var builder = TestObjectBuilderBuilder<Product>.Build(
                 constructorArguments);
 
             var aList = new List<int>() { 2, 3 };

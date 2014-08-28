@@ -16,13 +16,23 @@ namespace TestObjectBuilder
      */
     public class TestObjectBuilderBuilder<T>
     {
-
-        public static ITestObjectBuilder<T> CreateNewObject()
+        /// <summary>
+        /// Builds a TestObjectBuilder for type T.
+        /// </summary>
+        /// <returns>instance of TestObjectBuilder for type T</returns>
+        public static ITestObjectBuilder<T> Build()
         {
-            return CreateNewObject(null);
+            return Build(null);
         }
 
-        public static ITestObjectBuilder<T> CreateNewObject(TestObjectConstructorArgumentList ctorArgs)
+        /// <summary>
+        /// Builds a TestObjectBuilder for type T.
+        /// </summary>
+        /// <param name="ctorArgs">
+        /// List of arguments used to construct object of type T.
+        /// </param>
+        /// <returns>instance of TestObjectBuilder for type T</returns>
+        public static ITestObjectBuilder<T> Build(TestObjectConstructorArgumentList ctorArgs)
         {
             if (null == ctorArgs)
             {

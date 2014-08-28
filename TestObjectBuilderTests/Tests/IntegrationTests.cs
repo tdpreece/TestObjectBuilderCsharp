@@ -24,7 +24,7 @@ namespace TestObjectBuilderTests.Tests
             Dependency2 inputDependency2Value = new Dependency2();
 
             // Act
-            ITestObjectBuilder<Product> builder = TestObjectBuilderBuilder<Product>.CreateNewObject(
+            ITestObjectBuilder<Product> builder = TestObjectBuilderBuilder<Product>.Build(
                 constructorArguments);
             builder.With(ConstructorArg1 => inputDependency1Value);
             builder.With(SecondDependency => inputDependency2Value);
