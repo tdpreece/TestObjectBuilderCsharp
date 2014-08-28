@@ -56,14 +56,15 @@ namespace TestObjectBuilder
             return (ITestObjectBuilder<T>)this.MemberwiseClone();
         }
 
-        // <summary>
-        // Sets the property named to the value supplied and returns this so 
-        // calls can be chained. 
-        // <remarks>
-        // Inspired by:
-        // http://anaykamat.com/2009/08/09/simple-equivalent-of-with-statement-in-c-sharp/
+        /// <summary>
+        /// Set property values on this builder.
+        /// </summary>
+        /// <param name="hash">E.G. Id => 4, Name => "Tim"</param>
+        /// <returns>this builder</returns>
         public ITestObjectBuilder<T> With(params Func<string, object>[] hash)
         {
+            // Inspired by:
+            // http://anaykamat.com/2009/08/09/simple-equivalent-of-with-statement-in-c-sharp/
             foreach (Func<string, object> member in hash)
             {
                 var propertyName = member.Method.GetParameters()[0].Name;
