@@ -17,12 +17,12 @@ namespace TestObjectBuilder
     public class TestObjectBuilderBuilder<T>
     {
 
-        public static ITestObjBuilder<T> CreateNewObject()
+        public static ITestObjectBuilder<T> CreateNewObject()
         {
             return CreateNewObject(null);
         }
 
-        public static ITestObjBuilder<T> CreateNewObject(TestObjectConstructorArgumentList ctorArgs)
+        public static ITestObjectBuilder<T> CreateNewObject(TestObjectConstructorArgumentList ctorArgs)
         {
             if (null == ctorArgs)
             {
@@ -30,7 +30,7 @@ namespace TestObjectBuilder
             }
             ValidateConstructorArguments(ctorArgs);
             var myType = CompileResultType(ctorArgs);
-            ITestObjBuilder<T> testObjectBuilder = (ITestObjBuilder<T>)Activator.CreateInstance(myType);
+            ITestObjectBuilder<T> testObjectBuilder = (ITestObjectBuilder<T>)Activator.CreateInstance(myType);
             testObjectBuilder.PropertiesUsedByProductConstructor = GetNamesProductConstructorArguements(ctorArgs);
             return testObjectBuilder;
         }
@@ -64,7 +64,7 @@ namespace TestObjectBuilder
                                 TypeAttributes.AnsiClass |
                                 TypeAttributes.BeforeFieldInit |
                                 TypeAttributes.AutoLayout
-                                , typeof(TestObjBuilder<T>));
+                                , typeof(TestObjectBuilder<T>));
             return tb;
         }
 

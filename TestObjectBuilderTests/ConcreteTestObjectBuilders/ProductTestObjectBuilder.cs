@@ -6,7 +6,7 @@ using TestObjectBuilder;
 
 namespace TestObjectBuilderTests
 {
-    public class ProductTestObjectBuilder : TestObjBuilder<Product>
+    public class ProductTestObjectBuilder : TestObjectBuilder<Product>
     {
         public ProductTestObjectBuilder()
         {

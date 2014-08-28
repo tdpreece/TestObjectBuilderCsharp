@@ -7,7 +7,7 @@ using TestObjectBuilder;
 
 namespace Examples
 {
-    public class ProductBuilder : TestObjBuilder<Product>
+    public class ProductBuilder : TestObjectBuilder<Product>
     {
         public ProductBuilder()
         {

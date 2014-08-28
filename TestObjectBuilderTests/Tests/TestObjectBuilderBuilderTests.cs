@@ -21,7 +21,7 @@ namespace TestObjectBuilderTests.Tests
             {
                 // Arrange
                 // Act
-                ITestObjBuilder<ProductWithoutProperties> builder =
+                ITestObjectBuilder<ProductWithoutProperties> builder =
     TestObjectBuilderBuilder<ProductWithoutProperties>.CreateNewObject();
                 // Assert
                 Assert.AreSame(typeof(ProductWithoutProperties), builder.GetType().GetMethod("Build").ReturnType);
@@ -32,7 +32,7 @@ namespace TestObjectBuilderTests.Tests
             {
                 // Arrange
                 // Act
-                ITestObjBuilder<ProductWithTwoPublicReadWriteProperties> builder =
+                ITestObjectBuilder<ProductWithTwoPublicReadWriteProperties> builder =
     TestObjectBuilderBuilder<ProductWithTwoPublicReadWriteProperties>.CreateNewObject();
 
                 // Assert
@@ -57,7 +57,7 @@ namespace TestObjectBuilderTests.Tests
                 Assert.IsNull(productPrivateProperty.GetSetMethod()); // Public setter doesn't exist.
 
                 // Act
-                ITestObjBuilder<ProductWithPropertyWithPrivateSetter> builder =
+                ITestObjectBuilder<ProductWithPropertyWithPrivateSetter> builder =
                     TestObjectBuilderBuilder<ProductWithPropertyWithPrivateSetter>.CreateNewObject();
 
                 // Assert
@@ -80,7 +80,7 @@ namespace TestObjectBuilderTests.Tests
                 Assert.IsFalse(productPrivateProperty.CanWrite); // A setter exists.
 
                 // Act
-                ITestObjBuilder<ProductWithPropertyWithoutSetter> builder =
+                ITestObjectBuilder<ProductWithPropertyWithoutSetter> builder =
     TestObjectBuilderBuilder<ProductWithPropertyWithoutSetter>.CreateNewObject();
 
                 // Assert
@@ -100,7 +100,7 @@ namespace TestObjectBuilderTests.Tests
                     new TestObjectConstructorArgumentList() { arg1, arg2 };
 
                 // Act
-                ITestObjBuilder<ProductWithoutProperties> builder =
+                ITestObjectBuilder<ProductWithoutProperties> builder =
     TestObjectBuilderBuilder<ProductWithoutProperties>.CreateNewObject(constructorArguments);
                 
                 // Assert
@@ -120,7 +120,7 @@ namespace TestObjectBuilderTests.Tests
                     new TestObjectConstructorArgumentList() { arg1 };
 
                 // Act
-                ITestObjBuilder<ProductWithTwoPublicReadWriteProperties> builder =
+                ITestObjectBuilder<ProductWithTwoPublicReadWriteProperties> builder =
                     TestObjectBuilderBuilder<ProductWithTwoPublicReadWriteProperties>.CreateNewObject(constructorArguments);
             }
 
@@ -137,7 +137,7 @@ namespace TestObjectBuilderTests.Tests
                     new TestObjectConstructorArgumentList() { arg1, arg2 };
 
                 // Act
-                ITestObjBuilder<ProductWithTwoConstructorArgumentsOfDifferentType> builder =
+                ITestObjectBuilder<ProductWithTwoConstructorArgumentsOfDifferentType> builder =
                     TestObjectBuilderBuilder<ProductWithTwoConstructorArgumentsOfDifferentType>.
                     CreateNewObject(constructorArguments);
             }
@@ -155,7 +155,7 @@ namespace TestObjectBuilderTests.Tests
                     new TestObjectConstructorArgumentList() { arg1, arg2 };
 
                 // Act
-                ITestObjBuilder<ProductWithoutProperties> builder =
+                ITestObjectBuilder<ProductWithoutProperties> builder =
     TestObjectBuilderBuilder<ProductWithoutProperties>.CreateNewObject(constructorArguments);
 
                 // Assert
@@ -178,7 +178,7 @@ namespace TestObjectBuilderTests.Tests
                     arg1, arg2 };
 
                 // Act
-                ITestObjBuilder<ProductWithTwoIdenticalConstructorArguments> builder =
+                ITestObjectBuilder<ProductWithTwoIdenticalConstructorArguments> builder =
                     TestObjectBuilderBuilder<ProductWithTwoIdenticalConstructorArguments>.CreateNewObject(
                     constructorArguments);
 

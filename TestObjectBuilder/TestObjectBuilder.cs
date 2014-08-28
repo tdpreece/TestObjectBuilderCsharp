@@ -7,11 +7,11 @@ using System.Reflection;
 
 namespace TestObjectBuilder
 {
-    public abstract class TestObjBuilder<T> : ITestObjBuilder<T>
+    public abstract class TestObjectBuilder<T> : ITestObjectBuilder<T>
     {
 
         #region "Constructors"
-        public TestObjBuilder()
+        public TestObjectBuilder()
         {
             this.PropertiesUsedByProductConstructor = new List<string>();
             this._propertiesChangedByClient = new HashSet<string>();
@@ -51,9 +51,9 @@ namespace TestObjectBuilder
         // <remarks>
         // Don't need deep copy as will only be changing what the builder's properties
         // point to not the data they point to.
-        public ITestObjBuilder<T> But()
+        public ITestObjectBuilder<T> But()
         {
-            return (ITestObjBuilder<T>)this.MemberwiseClone();
+            return (ITestObjectBuilder<T>)this.MemberwiseClone();
         }
 
         // <summary>
@@ -62,7 +62,7 @@ namespace TestObjectBuilder
         // <remarks>
         // Inspired by:
         // http://anaykamat.com/2009/08/09/simple-equivalent-of-with-statement-in-c-sharp/
-        public ITestObjBuilder<T> With(params Func<string, object>[] hash)
+        public ITestObjectBuilder<T> With(params Func<string, object>[] hash)
         {
             foreach (Func<string, object> member in hash)
             {
@@ -72,7 +72,7 @@ namespace TestObjectBuilder
                 _propertiesChangedByClient.Add(propertyName);
             };
 
-            return (ITestObjBuilder<T>)this;
+            return (ITestObjectBuilder<T>)this;
         }
 
         // <summary>

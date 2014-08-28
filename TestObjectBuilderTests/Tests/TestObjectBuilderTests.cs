@@ -16,7 +16,7 @@ namespace TestObjectBuilderTests
      * done - with()
      * done - but()
      * done - build()
-     * done - add GetProperty(dependency name) string.  With returns ITestObjBuilder<T>, which
+     * done - add GetProperty(dependency name) string.  With returns ITestObjectBuilder<T>, which
      *   has no visibility of the dependencies for a concrete class.  Thus you'd have to do,
      *   builder.GetType().GetProperty("FirstDependency").GetValue(builder, null)
      * 
@@ -197,7 +197,7 @@ namespace TestObjectBuilderTests
                 IDependency2 dependency2 = new DummyDependency2();
 
                 // Act
-                ITestObjBuilder<Product> builder = this._productBuilder.With(FirstDependency => dependency1).
+                ITestObjectBuilder<Product> builder = this._productBuilder.With(FirstDependency => dependency1).
                     With(SecondDependency => dependency2);
 
                 // Assert
