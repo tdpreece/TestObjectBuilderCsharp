@@ -59,7 +59,7 @@ A builder to create test data for this class would probably look something like,
         public List<int> Y { get; set; }
     }
 ```
-This project contains a TestObjectBuilder class which you can inherit to 
+This project contains a TestObjectBuilder class from which you can inherit to 
 reduce the amount of code you have to manually enter for each builder.
 For example,
 ```
@@ -88,7 +88,7 @@ instantiated.  ProductBuilderUsingBaseClass can be used like,
             Assert.AreEqual(1, aClassInstance.X);
 ```
 1. When builder.Build() is called a Product is instantiated with the value of 
-property X pased to the constructor.
+property X passed to the constructor.
 2. Property Y on the instance is then set to the value of Y on the builder.  NOTE
 that this only happened because Y had been set on the builder using the With method.
 If this had not been done, Y would not have been set on the instance.
