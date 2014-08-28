@@ -46,11 +46,10 @@ namespace TestObjectBuilder
             return product;
         }
 
-        // <summary>
-        // Returns a memberwise clone of the current builder.
-        // <remarks>
-        // Don't need deep copy as will only be changing what the builder's properties
-        // point to not the data they point to.
+        /// <summary>
+        /// Returns a memberwise clone of the current builder.
+        /// </summary>
+        /// <returns>this.MemberwiseClone()</returns>
         public ITestObjectBuilder<T> But()
         {
             return (ITestObjectBuilder<T>)this.MemberwiseClone();
