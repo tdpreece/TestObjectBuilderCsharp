@@ -76,7 +76,7 @@ For example,
 ```
 The PropertiesUsedByProductConstructor property is an ordered list of the 
 property values that should be passed to the constructor when a Product is
-instantiated.  This can be used like,
+instantiated.  ProductBuilderUsingBaseClass can be used like,
 ```
             var builder = new ProductBuilderUsingBaseClass();
             var aList = new List<int>() { 2, 3 };
