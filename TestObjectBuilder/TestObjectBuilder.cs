@@ -46,20 +46,13 @@ namespace TestObjectBuilder
             return product;
         }
 
-        /// <summary>
-        /// Returns a memberwise clone of the current builder.
-        /// </summary>
-        /// <returns>this.MemberwiseClone()</returns>
+
         public ITestObjectBuilder<T> But()
         {
             return (ITestObjectBuilder<T>)this.MemberwiseClone();
         }
 
-        /// <summary>
-        /// Set property values on this builder.
-        /// </summary>
-        /// <param name="hash">E.G. Id => 4, Name => "Tim"</param>
-        /// <returns>this builder</returns>
+
         public ITestObjectBuilder<T> With(params Func<string, object>[] hash)
         {
             // Inspired by:
@@ -75,11 +68,7 @@ namespace TestObjectBuilder
             return (ITestObjectBuilder<T>)this;
         }
 
-        /// <summary>
-        /// Gets value of property requested.
-        /// </summary>
-        /// <param name="propertyName">property name as string</param>
-        /// <returns>property value</returns>
+
         public object GetPropertyValue(string propertyName)
         {
             return this.GetPropertyInfoForProperty(propertyName).GetValue(this, null);
