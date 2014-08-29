@@ -17,7 +17,7 @@ namespace TestObjectBuilder
     /// Builds a TestObjectBuilder for type T.
     /// </summary>
     /// <typeparam name="T">type of TestObjectBuilder</typeparam>
-    public class TestObjectBuilderBuilder<T>
+    public static class TestObjectBuilderBuilder<T>
     {
         #region "Public Functions"
         /// <summary>
