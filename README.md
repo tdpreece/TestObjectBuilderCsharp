@@ -1,10 +1,11 @@
 TestObjectBuildersCsharp
 ========================
-TestObjectBuildersCsharp allows you to quickly create builder 
-classes that put together data for classes under test and/or their 
+The aim of this project is to allow you to quickly create builder 
+classes that put together test data for classes under test and/or their 
 collaborators.
 
 # Installation
+This is still work in progress so the installation is a little manual.
 * Download the TestObjectBuilder project and add to your solution.
 * Reference TestObjectBuilder project from the project that contains your unit tests.
 
@@ -59,7 +60,7 @@ A builder to create test data for this class would probably look something like,
         public List<int> Y { get; set; }
     }
 ```
-This project contains a TestObjectBuilder class from which you can inherit to 
+This project contains a TestObjectBuilder class which you can subclass to 
 reduce the amount of code you have to manually enter for each builder.
 For example,
 ```
@@ -75,7 +76,7 @@ For example,
     }
 ```
 The PropertiesUsedByProductConstructor property is an ordered list of the 
-property values that should be passed to the constructor when a Product is
+property values that will be passed to the constructor when a Product is
 instantiated.  ProductBuilderUsingBaseClass can be used like,
 ```
             var builder = new ProductBuilderUsingBaseClass();
@@ -91,12 +92,13 @@ instantiated.  ProductBuilderUsingBaseClass can be used like,
 property X passed to the constructor.
 2. Property Y on the instance is then set to the value of Y on the builder.  NOTE
 that this only happened because Y had been set on the builder using the With method.
-If this had not been done, Y would not have been set on the instance.
+If this had not been done, Y would not have been set on the instance.  The builder
+will only set values on the product that have been set on the builder using the With
+method.
 
-If this is still too much work you can make use of the 
-TestObjectBuilderBuilder, which creates TestObjectBuilders for you
+This project also contains a TestObjectBuilderBuilder class, which can create TestObjectBuilders 
 at run time.  The following code creates a TestObjectBuilder that 
-has the same structure as ProductBuilderUsingBaseClass.
+has the same structure as ProductBuilderUsingBaseClass described above.
 ```
             var constructorArguments = new TestObjectConstructorArgumentList() {
                 new TestObjectConstructorArgument("X", typeof(int))
