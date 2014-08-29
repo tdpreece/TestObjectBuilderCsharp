@@ -96,8 +96,6 @@ namespace TestObjectBuilder
             TypeBuilder tb = moduleBuilder.DefineType("ADynamicTestObjectBuilder"
                                 , TypeAttributes.Public |
                                 TypeAttributes.Class |
-                                TypeAttributes.AutoClass |
-                                TypeAttributes.AnsiClass |
                                 TypeAttributes.BeforeFieldInit |
                                 TypeAttributes.AutoLayout
                                 , typeof(TestObjectBuilder<T>));
