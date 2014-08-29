@@ -85,7 +85,13 @@ namespace TestObjectBuilder
         private static TypeBuilder GetTypeBuilder()
         {
             var an = new AssemblyName("TestObjectBuilderTmpAssembly");
-            AssemblyBuilder assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(an, AssemblyBuilderAccess.Run);
+            /* Use AssemblyBuilderAccess.RunAndCollect instead of AssemblyBuilderAccess.Run
+             * so that assembly is collected when it's no longer being used.
+             * http://v2matveev.blogspot.co.uk/2010/03/net-40-collectible-assemblies.html
+             * http://msdn.microsoft.com/en-us/library/dd554932(v=vs.110).aspx
+             */
+            AssemblyBuilder assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(
+                an, AssemblyBuilderAccess.RunAndCollect);
             ModuleBuilder moduleBuilder = assemblyBuilder.DefineDynamicModule("MainModule");
             TypeBuilder tb = moduleBuilder.DefineType("ADynamicTestObjectBuilder"
                                 , TypeAttributes.Public |
