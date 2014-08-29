@@ -1,0 +1,18 @@
+﻿
+**********************
+*** PropertiesUsedByProductConstructor
+Change the way that PropertiesUsedByProductConstructor is stored as this could
+possibly clash with a property on the type the builder will build.
+
+**********************
+*** Rename TestObjectConstructorArgument and TestObjectConstructorArgumentList
+These are long names and make building a builder look a lot more complicated than it is.
+
+**********************
+*** Handling Dynamic Assemblies
+Currently a new Dynamic Assembly is created for each dynamically created builder.
+An alternative would be to create a dynamic assembly once and use it again and again
+(E.G. like https://github.com/castleproject/Castle.DynamicProxy-READONLY).  This also
+allows you to cache dynamic types that you've built once already.
+
+Can Castle.DynamicProxy (or a similar framework) be used to create TestObjectBuilders?

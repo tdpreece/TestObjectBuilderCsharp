@@ -1,0 +1,50 @@
+﻿https://github.com/castleproject/Castle.DynamicProxy-READONLY
+
+I had a look at Castle Project's Dynamic Proxies to see how they handle dynamic
+assemblies.
+
+Below are my notes from looking at the code.
+
+************** From call to CreateModule ******
+
+ModuleScope.CreateModule() defines dynamic assembly whenever called.
+
+Which is called on the first time that ModuleScope.ObtainDynamicModule() 
+is called.
+
+Which is called everytime ClassEmitter.CreateTypeBuilder is called.
+    
+modulescope is passed into ClassEmitter's constructor.
+
+**************** From API ************
+
+private static readonly ProxyGenerator _generator = new ProxyGenerator();
+
+var proxy = _generator.CreateClassProxy<TFreezable>(new CallLoggingInterceptor(), 
+freezableInterceptor);
+_freezables.Add(proxy, freezableInterceptor);
+
+
+* Instantiation of ProxyGenerator()
+When ProxyGenerator is instantiated using zero arg ctor it creates a new instance of 
+DefaultProxyBuilder()
+
+When new ModuleScope() is instantiated using zero arg ctor it creates a new instance of 
+ModuleScope.
+
+* Call to ProxyGenerator.CreateClassProxy<Type>()
+instantiates new ClassProxyGenerator(scope, classToProxy), passing in module scope
+and class to be proxied.
+Then calls ClassProxyGenerator.GenerateCode()
+
+creates a new ClassEmitter(Scope, typeName, parentType, interfaces);
+[see "From API" section above which worked from ModuleScope.CreateModule() side.]
+
+********** Caching *********
+* Caching is done in ClassProxyGenerator.GenerateCode()
+
+
+
+
+
+
