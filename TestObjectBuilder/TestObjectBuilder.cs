@@ -7,6 +7,11 @@ using System.Reflection;
 
 namespace TestObjectBuilder
 {
+    /// <summary>
+    /// Abstract Base Class containing implementations of methods common to
+    /// all builders.
+    /// </summary>
+    /// <typeparam name="T">Type of object that will be built by this builder.</typeparam>
     public abstract class TestObjectBuilder<T> : ITestObjectBuilder<T>
     {
 

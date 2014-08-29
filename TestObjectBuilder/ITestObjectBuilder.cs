@@ -5,6 +5,11 @@ using System.Text;
 
 namespace TestObjectBuilder
 {
+    /// <summary>
+    /// Interface defining methods and properties common to
+    /// all test object builders.
+    /// </summary>
+    /// <typeparam name="T">type of object built</typeparam>
     public interface ITestObjectBuilder<T>
     {
         /// <summary>

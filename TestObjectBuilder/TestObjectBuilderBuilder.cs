@@ -6,14 +6,17 @@ using System.Text;
 using System.Reflection;
 using System.Reflection.Emit;
 
+/** 
+ * References: 
+ * http://stackoverflow.com/questions/3862226/dynamically-create-a-class-in-c-sharp
+ */
+
 namespace TestObjectBuilder
 {
-    /**
-     * 
-     * Taken from: 
-     * http://stackoverflow.com/questions/3862226/dynamically-create-a-class-in-c-sharp
-     * http://stackoverflow.com/questions/17519078/initializing-a-generic-variable-from-a-c-sharp-type-variable
-     */
+    /// <summary>
+    /// Builds a TestObjectBuilder for type T.
+    /// </summary>
+    /// <typeparam name="T">type of TestObjectBuilder</typeparam>
     public class TestObjectBuilderBuilder<T>
     {
         #region "Public Functions"
@@ -41,6 +44,7 @@ namespace TestObjectBuilder
             }
             ValidateConstructorArguments(ctorArgs);
             var myType = CompileResultType(ctorArgs);
+            // http://stackoverflow.com/questions/17519078/initializing-a-generic-variable-from-a-c-sharp-type-variable
             ITestObjectBuilder<T> testObjectBuilder = (ITestObjectBuilder<T>)Activator.CreateInstance(myType);
             testObjectBuilder.PropertiesUsedByProductConstructor = GetNamesProductConstructorArguements(ctorArgs);
             return testObjectBuilder;

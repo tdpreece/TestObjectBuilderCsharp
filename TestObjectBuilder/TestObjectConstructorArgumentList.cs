@@ -5,6 +5,9 @@ using System.Text;
 
 namespace TestObjectBuilder
 {
+    /// <summary>
+    /// An ordered list of TestObjectConstructorArguments.
+    /// </summary>
     public class TestObjectConstructorArgumentList : System.Collections.CollectionBase
     {
         /// <summary>
