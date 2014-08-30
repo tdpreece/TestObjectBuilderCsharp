@@ -162,7 +162,7 @@ namespace TestObjectBuilder
         #endregion
 
         #region "private members"
-        HashSet<string> _propertiesChangedByClient;
+        private HashSet<string> _propertiesChangedByClient;
         #endregion
     }
 }
