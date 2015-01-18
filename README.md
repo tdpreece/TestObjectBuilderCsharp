@@ -4,6 +4,11 @@ The aim of this project is to allow you to quickly create builder
 classes that put together test data for classes under test and/or their 
 collaborators.
 
+I started work on this project before I was aware of https://github.com/AutoFixture/AutoFixture,
+though I still think that this project is useful for situations where
+you require greater control of which constructor is used in the class being built
+( see limitations to Autofixture in this respect: http://blog.ploeh.dk/2009/03/24/HowAutoFixtureCreatesObjects/). 
+
 # Installation
 This is still work in progress so the installation is a little manual.
 * Download the TestObjectBuilder project and add to your solution.
@@ -96,8 +101,8 @@ If this had not been done, Y would not have been set on the instance.  The build
 will only set values on the product that have been set on the builder using the With
 method.
 
-This project also contains a TestObjectBuilderBuilder class, which can create TestObjectBuilders 
-at run time.  The following code creates a TestObjectBuilder that 
+This project also contains a TestObjectBuilderBuilder class (work in progress *), 
+which can create TestObjectBuilders at run time.  The following code creates a TestObjectBuilder that 
 has the same structure as ProductBuilderUsingBaseClass described above.
 ```
             var constructorArguments = new TestObjectConstructorArgumentList() {
@@ -113,6 +118,10 @@ that don't share a name with any of Properties added in the previous step.
 3. It then sets PropertiesUsedByProductConstructor property using the list of
 constructor arguments specified.
 
+* Currently a new Dynamic Assembly is created for each dynamically created builder.
+An alternative would be to create a dynamic assembly once and use it again and again.  
+This also allows you to cache dynamic types that you've built once already.  See also,
+TestObjectBuilderCsharp/FutureEnhancements/FutureEnhancements.txt.
 
 
 
