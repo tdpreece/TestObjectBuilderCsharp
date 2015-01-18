@@ -118,7 +118,7 @@ that don't share a name with any of Properties added in the previous step.
 3. It then sets PropertiesUsedByProductConstructor property using the list of
 constructor arguments specified.
 
-[^dynamic-assembly_footnote] Currently a new Dynamic Assembly is created for each dynamically created builder.
+[^dynamic-assembly_footnote]: Currently a new Dynamic Assembly is created for each dynamically created builder.
 An alternative would be to create a dynamic assembly once and use it again and again.  
 This also allows you to cache dynamic types that you've built once already.  See also,
 TestObjectBuilderCsharp/FutureEnhancements/FutureEnhancements.txt.
