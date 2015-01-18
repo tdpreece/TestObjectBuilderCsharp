@@ -101,7 +101,7 @@ If this had not been done, Y would not have been set on the instance.  The build
 will only set values on the product that have been set on the builder using the With
 method.
 
-This project also contains a TestObjectBuilderBuilder class (work in progress *), 
+This project also contains a TestObjectBuilderBuilder class (work in progress [^dynamic-assembly_footnote]), 
 which can create TestObjectBuilders at run time.  The following code creates a TestObjectBuilder that 
 has the same structure as ProductBuilderUsingBaseClass described above.
 ```
@@ -118,7 +118,7 @@ that don't share a name with any of Properties added in the previous step.
 3. It then sets PropertiesUsedByProductConstructor property using the list of
 constructor arguments specified.
 
-* Currently a new Dynamic Assembly is created for each dynamically created builder.
+[^dynamic-assembly_footnote] Currently a new Dynamic Assembly is created for each dynamically created builder.
 An alternative would be to create a dynamic assembly once and use it again and again.  
 This also allows you to cache dynamic types that you've built once already.  See also,
 TestObjectBuilderCsharp/FutureEnhancements/FutureEnhancements.txt.
